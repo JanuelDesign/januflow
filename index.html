@@ -1,3615 +1,795 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>911 Closets | Custom Closets South Florida</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>JanuFlow | Songwriter & Music Producer</title>
+    <!-- Favicon personalizado JF -->
+    <link rel="icon" type="image/png" sizes="32x32" href="img/logos/favicon.png">
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,100..900;1,100..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="icon" type="image/png" sizes="32x32" href="img/logo/logo-911-closets.png">
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-<style>
-
-
-    /* ==========================================
-   VARIABLES GLOBALES
-   ========================================== */
-:root {
-    --black: #0a0a0a;
-    --white: #ffffff;
-    --red: #e11d24;
-    --red-dark: #b91c1c;
-    --beige: #f5f2f0;
-    --gray-light: #fafafa;
-    --gray-dark: #1a1a1a;
-    --font-serif: 'Fraunces', serif;
-    --font-sans: 'Plus Jakarta Sans', sans-serif;
-    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* ==========================================
-   RESET Y BASE
-   ========================================== */
-* { 
-    margin: 0; 
-    padding: 0; 
-    box-sizing: border-box; 
-}
-
-html { 
-    scroll-behavior: smooth; 
-}
-
-body { 
-    font-family: var(--font-sans); 
-    background-color: var(--white); 
-    color: var(--black); 
-    line-height: 1.6; 
-    overflow-x: hidden; 
-    font-weight: 400;
-}
-
-h1, h2, h3, h4, h5, h6 { 
-    font-family: var(--font-serif); 
-    font-weight: 400; 
-    letter-spacing: -0.03em; 
-    line-height: 1.1; 
-}
-
-/* ==========================================
-   UTILIDADES GLOBALES
-   ========================================== */
-.scroll-progress { 
-    position: fixed; 
-    top: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 3px; 
-    background: linear-gradient(90deg, var(--red), #ff6b6b); 
-    z-index: 9999; 
-    transform-origin: 0 50%; 
-    transform: scaleX(0); 
-}
-
-/* Toast */
-.toast { 
-    position: fixed; 
-    top: 20px; 
-    right: 20px; 
-    background: var(--black); 
-    color: white; 
-    padding: 1rem 1.5rem; 
-    border-radius: 12px; 
-    box-shadow: 0 20px 48px rgba(0,0,0,0.15); 
-    z-index: 10000; 
-    transform: translateX(150%); 
-    transition: transform 0.4s var(--ease-out-expo); 
-    display: flex; 
-    align-items: center; 
-    gap: 0.75rem; 
-    font-weight: 500; 
-    max-width: 90vw; 
-}
-
-.toast.show { 
-    transform: translateX(0); 
-}
-
-.toast.success { 
-    border-left: 4px solid #22c55e; 
-}
-
-.toast.error { 
-    border-left: 4px solid var(--red); 
-}
-
-/* Floating Button */
-.floating-customizer { 
-    position: fixed; 
-    bottom: 30px; 
-    right: 30px; 
-    width: 64px; 
-    height: 64px; 
-    background: var(--red); 
-    border-radius: 50%; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    z-index: 1000; 
-    box-shadow: 0 8px 32px rgba(225, 29, 36, 0.4); 
-    transition: all 0.4s var(--ease-out-expo); 
-    cursor: pointer; 
-    border: none; 
-    color: white; 
-    text-decoration: none; 
-    animation: pulse-glow 2s infinite; 
-    border: solid 5px #ffffff;
-}
-
-@keyframes pulse-glow { 
-    0%, 100% { box-shadow: 0 0 20px rgba(225, 29, 36, 0.4); } 
-    50% { box-shadow: 0 0 40px rgba(225, 29, 36, 0.8); } 
-}
-
-.floating-customizer:hover { 
-    transform: scale(1.15) rotate(15deg); 
-    background: var(--red-dark); 
-}
-
-/* ==========================================
-   MODAL STYLES
-   ========================================== */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.8);
-    backdrop-filter: blur(10px);
-    z-index: 10001;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 0rem;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.modal-overlay.active {
-    display: flex;
-    opacity: 1;
-}
-
-.modal-content {
-    background: var(--white);
-    border-radius: 24px;
-    max-width: 900px;
-    width: 100%;
-    max-height: 90vh;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    transform: scale(0.9);
-    transition: transform 0.3s var(--ease-out-expo);
-}
-
-.modal-overlay.active .modal-content {
-    transform: scale(1);
-}
-
-.modal-header {
-    padding: 2rem;
-    background: var(--black);
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.modal-header h3 {
-    font-size: 1.5rem;
-    font-weight: 500;
-}
-
-.modal-close {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 1.5rem;
-    cursor: pointer;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s;
-}
-
-.modal-close:hover {
-    background: rgba(255,255,255,0.1);
-}
-
-.modal-body {
-    padding: 2rem;
-    overflow-y: auto;
-    flex: 1;
-}
-
-/* ⭐ NUEVO: Contenedor PDF con scroll */
-.modal-pdf-container {
-    width: 100%;
-    height: 500px;
-    background: var(--beige);
-    border-radius: 12px;
-    overflow: hidden;
-    margin-bottom: 1.5rem;
-    border: 2px solid rgba(0,0,0,0.1);
-}
-
-.modal-pdf-container iframe,
-.modal-pdf-container embed {
-    width: 100%;
-    height: 100%;
-    border: none;
-    border-radius: 12px;
-}
-
-.modal-pdf-placeholder {
-    text-align: center;
-    color: #666;
-    padding: 3rem;
-}
-
-.modal-pdf-placeholder i {
-    font-size: 4rem;
-    color: var(--red);
-    margin-bottom: 1rem;
-    display: block;
-}
-
-.modal-footer {
-    padding: 2rem;
-    border-top: 1px solid rgba(0,0,0,0.1);
-    display: flex;
-    justify-content: flex-end;
-}
-
-.btn-modal {
-    padding: 1rem 2rem;
-    background: var(--red);
-    color: white;
-    border: none;
-    border-radius: 100px;
-    font-family: var(--font-serif);
-    font-size: 1.1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-}
-
-.btn-modal:hover {
-    background: var(--red-dark);
-    transform: translateY(-2px);
-}
-
-/* ==========================================
-   HERO SECTION
-   ========================================== */
-.hero { 
-    min-height: 100vh; 
-    display: flex; 
-    flex-direction: column; 
-    align-items: center; 
-    justify-content: center; 
-    padding: 4rem 2rem; 
-    position: relative; 
-    background: linear-gradient(135deg, rgba(10,10,10,0.85) 0%, rgba(10,10,10,0.7) 100%), url('img/hero/video-hero.gif'); 
-    background-size: cover; 
-    background-position: center; 
-    text-align: center; 
-    overflow: hidden; 
-}
-
-.hero::before { 
-    content: ''; 
-    position: absolute; 
-    top: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 100%; 
-    background: radial-gradient(circle at 50% 50%, transparent 0%, rgba(0,0,0,0.4) 100%); 
-    pointer-events: none; 
-}
-
-/* Logo - SIN animación de flotación */
-.hero-logo { 
-    margin-bottom: 2rem; 
-    position: relative; 
-    z-index: 2; 
-}
-
-.hero-logo-img { 
-    height: 190px; 
-    width: 190px; 
-    border-radius: 50%; 
-    box-shadow: 0 20px 60px rgba(0,0,0,0.5); 
-    transition: all 0.5s var(--ease-out-expo); 
-    border: 3px solid rgba(255,255,255,0.1); 
-}
-
-.hero-logo-img:hover {
-    transform: scale(1.1) rotate(5deg);
-    box-shadow: 0 30px 80px rgba(225, 29, 36, 0.3);
-}
-
-/* Hero Content */
-.hero-content h1 { 
-    font-size: clamp(3rem, 6vw, 5.5rem); 
-    line-height: 1.05; 
-    margin-bottom: 1.5rem; 
-    color: var(--white); 
-    font-weight: 300; 
-}
-
-.hero-content h1 em { 
-    color: var(--red); 
-    font-style: italic; 
-    font-weight: 500; 
-    position: relative; 
-}
-
-.hero-content h1 em::after { 
-    content: ''; 
-    position: absolute; 
-    bottom: -5px; 
-    left: 0; 
-    width: 100%; 
-    height: 3px; 
-    background: var(--red); 
-    transform: scaleX(0); 
-    transform-origin: right; 
-    animation: line-grow 1s var(--ease-out-expo) 1s forwards; 
-}
-
-@keyframes line-grow { 
-    to { transform: scaleX(1); transform-origin: left; } 
-}
-
-.hero-subtitle { 
-    font-size: 1.25rem; 
-    color: rgba(255, 255, 255, 0.85); 
-    margin-bottom: 2.5rem; 
-    max-width: 600px; 
-    margin-left: auto; 
-    margin-right: auto; 
-    font-weight: 300; 
-}
-
-/* CTA Buttons */
-.hero-cta { 
-    display: inline-flex; 
-    align-items: center; 
-    gap: 0.75rem; 
-    background: var(--red); 
-    color: var(--white); 
-    padding: 1.2rem 2.5rem; 
-    font-family: var(--font-serif); 
-    font-size: 1.25rem; 
-    text-decoration: none; 
-    border-radius: 100px; 
-    transition: all 0.4s var(--ease-out-expo); 
-    border: 2px solid var(--red); 
-    font-weight: 500; 
-    position: relative; 
-    overflow: hidden; 
-}
-
-.hero-cta:hover { 
-    background: transparent; 
-    color: var(--white); 
-    border-color: var(--white); 
-    transform: translateY(-3px); 
-}
-
-.cta-buttons { 
-    display: flex; 
-    gap: 1rem; 
-    justify-content: center; 
-    flex-wrap: wrap; 
-}
-
-.cta-btn-secondary { 
-    background: transparent; 
-    color: var(--white); 
-    border: 2px solid rgba(255,255,255,0.3); 
-    padding: 1.2rem 2.5rem; 
-    font-family: var(--font-serif); 
-    font-size: 1.25rem; 
-    text-decoration: none; 
-    border-radius: 100px; 
-    transition: all 0.4s var(--ease-out-expo); 
-    font-weight: 500; 
-    display: inline-flex; 
-    align-items: center; 
-    gap: 0.75rem; 
-}
-
-.cta-btn-secondary:hover { 
-    background: var(--white); 
-    color: var(--black); 
-}
-
-/* ==========================================
-   BEFORE/AFTER SECTION
-   ========================================== */
-.before-after-section { 
-    width: 100%; 
-    background: var(--black); 
-    padding: 0; 
-}
-
-.before-after { 
-    position: relative; 
-    width: 100%; 
-    height: 600px; 
-    overflow: hidden; 
-}
-
-.ba-container { 
-    position: relative; 
-    width: 100%; 
-    height: 100%; 
-}
-
-.ba-img { 
-    position: absolute; 
-    top: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 100%; 
-    object-fit: cover; 
-}
-
-.ba-after { 
-    z-index: 1; 
-}
-
-.ba-before { 
-    z-index: 2; 
-    clip-path: inset(0 50% 0 0); 
-}
-
-.ba-slider { 
-    position: absolute; 
-    top: 0; 
-    left: 50%; 
-    width: 4px; 
-    height: 100%; 
-    background: var(--white); 
-    z-index: 3; 
-    transform: translateX(-50%); 
-    cursor: ew-resize; 
-}
-
-.ba-slider::before { 
-    content: '◀ ▶'; 
-    position: absolute; 
-    top: 50%; 
-    left: 50%; 
-    transform: translate(-50%, -50%); 
-    background: var(--red); 
-    color: white; 
-    padding: 12px 16px; 
-    border-radius: 50px; 
-    font-size: 12px; 
-    font-weight: bold; 
-}
-
-.ba-labels { 
-    position: absolute; 
-    top: 20px; 
-    left: 20px; 
-    z-index: 4; 
-    display: flex; 
-    gap: 10px; 
-}
-
-.ba-label { 
-    background: rgba(0,0,0,0.7); 
-    color: white; 
-    padding: 8px 16px; 
-    border-radius: 20px; 
-    font-size: 0.85rem; 
-    font-weight: 600; 
-    backdrop-filter: blur(10px); 
-}
-
-/* ==========================================
-   SECTIONS GLOBALES
-   ========================================== */
-.section-header { 
-    text-align: center; 
-    max-width: 800px; 
-    margin: 0 auto 4rem; 
-}
-
-.section-header h2 { 
-    font-size: clamp(2.5rem, 5vw, 4rem); 
-    margin-bottom: 1rem; 
-    font-weight: 300; 
-}
-
-.section-header p { 
-    font-size: 1.2rem; 
-    color: #666; 
-    font-weight: 300; 
-}
-
-section { 
-    padding: 6rem 2rem; 
-}
-
-/* ==========================================
-   ABOUT SECTION
-   ========================================== */
-.about { 
-    padding: 8rem 2rem; 
-    background: var(--black); 
-    color: var(--white); 
-    position: relative; 
-    overflow: hidden; 
-}
-
-.about::before { 
-    content: ''; 
-    position: absolute; 
-    top: -50%; 
-    right: -20%; 
-    width: 600px; 
-    height: 600px; 
-    background: radial-gradient(circle, rgba(225,29,36,0.15) 0%, transparent 70%); 
-    pointer-events: none; 
-}
-
-.about-container { 
-    max-width: 1200px; 
-    margin: 0 auto; 
-    display: grid; 
-    grid-template-columns: 1fr 1fr; 
-    gap: 6rem; 
-    align-items: center; 
-    position: relative; 
-    z-index: 2; 
-}
-
-.about h2 { 
-    font-size: 3rem; 
-    margin-bottom: 2rem; 
-    font-weight: 300; 
-}
-
-.about p { 
-    color: rgba(255,255,255,0.7); 
-    margin-bottom: 1.5rem; 
-    line-height: 1.8; 
-    font-size: 1.1rem; 
-    font-weight: 300; 
-}
-
-.about-cta { 
-    display: inline-flex; 
-    align-items: center; 
-    gap: 0.75rem; 
-    background: var(--red); 
-    color: var(--white); 
-    padding: 1.2rem 2.5rem; 
-    border-radius: 100px; 
-    text-decoration: none; 
-    font-weight: 500; 
-    margin-top: 1.5rem; 
-    transition: all 0.4s var(--ease-out-expo); 
-    border: 2px solid var(--red); 
-    font-family: var(--font-serif); 
-    font-size: 1.1rem; 
-}
-
-.about-cta:hover { 
-    background: transparent; 
-    color: var(--white); 
-    transform: translateY(-3px); 
-}
-
-.about-image { 
-    width: 100%; 
-    height: 550px; 
-    object-fit: cover; 
-    border-radius: 20px; 
-    box-shadow: 0 40px 80px rgba(0,0,0,0.4); 
-    transition: all 0.6s var(--ease-out-expo); 
-}
-
-.about-image:hover { 
-    transform: scale(1.02) translateY(-10px); 
-}
-
-/* ==========================================
-   BENEFITS SECTION
-   ========================================== */
-.benefits { 
-    padding: 8rem 2rem; 
-    background: var(--beige); 
-}
-
-.benefits-grid { 
-    max-width: 1200px; 
-    margin: 0 auto; 
-    display: grid; 
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
-    gap: 2rem; 
-}
-
-.benefit-card { 
-    padding: 2.5rem; 
-    background: rgba(255, 255, 255, 0.7); 
-    backdrop-filter: blur(20px); 
-    border: 1px solid rgba(255, 255, 255, 0.5); 
-    border-radius: 24px; 
-    transition: all 0.5s var(--ease-out-expo); 
-    text-align: left; 
-    position: relative; 
-    overflow: hidden; 
-}
-
-.benefit-card::before { 
-    content: ''; 
-    position: absolute; 
-    top: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 4px; 
-    background: linear-gradient(90deg, var(--red), #ff6b6b); 
-    transform: scaleX(0); 
-    transform-origin: left; 
-    transition: transform 0.5s var(--ease-out-expo); 
-}
-
-.benefit-card:hover { 
-    transform: translateY(-12px); 
-    box-shadow: 0 30px 60px rgba(0,0,0,0.1); 
-}
-
-.benefit-card:hover::before { 
-    transform: scaleX(1); 
-}
-
-.benefit-icon { 
-    font-size: 2.5rem; 
-    margin-bottom: 1.5rem; 
-    color: var(--red); 
-    display: inline-block; 
-    transition: transform 0.4s var(--ease-out-expo); 
-}
-
-.benefit-card:hover .benefit-icon { 
-    transform: scale(1.2) rotate(10deg); 
-}
-
-/* ==========================================
-   PRODUCTS SECTION
-   ========================================== */
-.products { 
-    padding: 8rem 2rem; 
-    background: var(--white); 
-}
-
-.products-grid { 
-    max-width: 1300px; 
-    margin: 0 auto; 
-    display: grid; 
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-    gap: 2rem; 
-    perspective: 1000px; 
-}
-
-.product-card { 
-    background: var(--white); 
-    border-radius: 24px; 
-    overflow: hidden; 
-    transition: all 0.5s var(--ease-out-expo); 
-    cursor: pointer; 
-    border: 1px solid rgba(0,0,0,0.05); 
-    position: relative; 
-    transform-style: preserve-3d; 
-}
-
-.product-card:hover { 
-    transform: translateY(-15px) rotateX(5deg); 
-    box-shadow: 0 40px 80px rgba(0,0,0,0.15); 
-}
-
-.product-img-container { 
-    width: 100%; 
-    height: 220px; 
-    overflow: hidden; 
-    position: relative; 
-}
-
-.product-img { 
-    width: 100%; 
-    height: 100%; 
-    object-fit: cover; 
-    transition: transform 0.8s var(--ease-out-expo); 
-}
-
-.product-card:hover .product-img { 
-    transform: scale(1.1); 
-}
-
-.product-content { 
-    padding: 1.5rem; 
-}
-
-.product-arrow { 
-    position: absolute; 
-    bottom: 1.5rem; 
-    right: 1.5rem; 
-    width: 40px; 
-    height: 40px; 
-    background: var(--red); 
-    border-radius: 50%; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    color: white; 
-    opacity: 0; 
-    transform: translateX(-20px); 
-    transition: all 0.4s var(--ease-out-expo); 
-}
-
-.product-card:hover .product-arrow { 
-    opacity: 1; 
-    transform: translateX(0); 
-}
-
-/* ==========================================
-   CONFIGURATOR SECTION
-   ========================================== */
-.configurator { 
-    padding: 6rem 1rem; 
-    background: linear-gradient(135deg, var(--black) 0%, #1a1a1a 100%); 
-    color: var(--white);
-    width: 100%; 
-    max-width: 100vw; 
-    box-sizing: border-box;
-    position: relative; 
-    overflow: hidden; 
-}
-
-.configurator-container { 
-    max-width: 1400px; 
-    margin: 0 auto; 
-    position: relative; 
-    z-index: 2; 
-}
-
-.config-layout { 
-    display: grid; 
-    grid-template-columns: 2fr 1fr; 
-    gap: 2rem; 
-    align-items: start; 
-}
-
-/* Preview Panel */
-.config-preview-panel { 
-    position: sticky; 
-    top: 30px; 
-    background: rgba(255,255,255,0.05); 
-    border-radius: 24px; 
-    overflow: hidden; 
-    border: 1px solid rgba(255,255,255,0.1); 
-    backdrop-filter: blur(20px); 
-}
-
-.preview-image-container {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 5/3;
-    background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
-    overflow: hidden;
-}
-
-.preview-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 1;
-    transform: scale(1);
-    transition: 
-        opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* Estado de carga: imagen se desvanece y hace zoom suave */
-.preview-image.loading {
-    opacity: 0;
-    transform: scale(1.05);
-}
-
-/* Imagen anterior que se desvanece */
-.preview-image.fade-out {
-    opacity: 0;
-    transform: scale(1.02);
-    transition: 
-        opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-        transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* Imagen nueva que aparece */
-.preview-image.fade-in {
-    opacity: 0;
-    transform: scale(0.98);
-    animation: gentleFadeIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes gentleFadeIn {
-    0% {
-        opacity: 0;
-        transform: scale(0.98) translateY(8px);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-    }
-}
-
-/* Efecto de brillo sutil al cargar */
-.preview-image-container::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 50%;
-    height: 100%;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 255, 255, 0.03),
-        transparent
-    );
-    transition: left 0.8s ease;
-    pointer-events: none;
-    z-index: 2;
-}
-
-.preview-image-container.loading::after {
-    left: 150%;
-    transition: left 1s ease;
-}
-
-/* Price Badge - DEBAJO DE LOS NOMBRES */
-.price-badge { 
-    display: inline-block;
-    margin-top: 15px;
-    background: var(--red); 
-    color: white; 
-    padding: 0.75rem 1.5rem; 
-    border-radius: 100px; 
-    font-weight: 700; 
-    font-size: 1.25rem; 
-    box-shadow: 0 8px 32px rgba(225, 29, 36, 0.4); 
-}
-
-.preview-info { 
-    padding: 1.5rem; 
-    text-align: center; 
-    border-top: 1px solid rgba(255,255,255,0.1); 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-/* Tabs Panel - MEJORADO PARA MOBILE */
-.config-tabs-panel { 
-    background: rgba(255,255,255,0.03); 
-    border-radius: 24px; 
-    border: 1px solid rgba(255,255,255,0.1); 
-    backdrop-filter: blur(20px); 
-    overflow: hidden; 
-}
-
-.tabs-header { 
-    display: flex; 
-    overflow-x: auto; 
-    scrollbar-width: none; 
-    -ms-overflow-style: none; 
-    border-bottom: 1px solid rgba(255,255,255,0.1); 
-    background: rgba(0,0,0,0.3); 
-    padding: 0.5rem;
-    gap: 0.25rem;
-}
-
-.tabs-header::-webkit-scrollbar { 
-    display: none; 
-}
-
-.tab-btn { 
-    flex: 1; 
-    min-width: 80px; 
-    padding: 1.25rem 0.5rem; 
-    background: transparent; 
-    border: none; 
-    color: rgba(255,255,255,0.5); 
-    font-family: var(--font-sans); 
-    font-size: 0.85rem; 
-    font-weight: 600; 
-    cursor: pointer; 
-    transition: all 0.3s; 
-    position: relative; 
-    white-space: nowrap; 
-    display: flex; 
-    flex-direction: column; 
-    align-items: center; 
-    gap: 0.5rem; 
-    text-transform: uppercase; 
-    letter-spacing: 0.05em; 
-    border-radius: 12px;
-    margin: 0 2px;
-}
-
-.tab-btn i { 
-    font-size: 1.25rem; 
-}
-
-.tab-btn.active { 
-    color: var(--red); 
-    background: rgba(225,29,36,0.1); 
-}
-
-.tab-btn.active::after { 
-    content: ''; 
-    position: absolute; 
-    bottom: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 3px; 
-    background: var(--red); 
-    border-radius: 3px;
-}
-
-.tab-btn.completed { 
-    color: #22c55e; 
-}
-
-.tab-content { 
-    display: none; 
-    padding: 2rem; 
-    animation: fadeIn 0.4s var(--ease-out-expo); 
-}
-
-.tab-content.active { 
-    display: block; 
-}
-
-@keyframes fadeIn { 
-    from { opacity: 0; transform: translateY(10px); } 
-    to { opacity: 1; transform: translateY(0); } 
-}
-
-.tab-title { 
-    font-size: 1.25rem; 
-    margin-bottom: 1.5rem; 
-    color: rgba(255,255,255,0.9); 
-    font-weight: 500; 
-    font-family: var(--font-serif); 
-}
-
-/* Options Grid */
-.options-grid { 
-    display: grid; 
-    grid-template-columns: repeat(2, 1fr); 
-    gap: 1rem; 
-}
-
-.option-card { 
-    background: rgba(255,255,255,0.05); 
-    border: 2px solid transparent; 
-    border-radius: 16px; 
-    padding: 1.25rem; 
-    text-align: center; 
-    cursor: pointer; 
-    transition: all 0.3s var(--ease-out-expo); 
-    position: relative; 
-}
-
-.option-card:hover { 
-    background: rgba(255,255,255,0.1); 
-    transform: translateY(-3px); 
-}
-
-.option-card.selected { 
-    border-color: var(--red); 
-    background: rgba(225,29,36,0.1); 
-}
-
-.option-card.selected::after { 
-    content: '✓'; 
-    position: absolute; 
-    top: 10px; 
-    right: 10px; 
-    width: 24px; 
-    height: 24px; 
-    background: var(--red); 
-    border-radius: 50%; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    font-size: 14px; 
-    color: white; 
-    font-weight: bold; 
-}
-
-.option-icon { 
-    font-size: 2rem; 
-    margin-bottom: 0.75rem; 
-    display: block; 
-}
-
-.option-name { 
-    font-size: 0.95rem; 
-    font-weight: 600; 
-    color: rgba(255,255,255,0.9); 
-    margin-bottom: 0.25rem; 
-}
-
-.option-desc { 
-    font-size: 0.8rem; 
-    color: rgba(255,255,255,0.5); 
-    margin-bottom: 0.5rem; 
-}
-
-.option-price { 
-    font-size: 0.85rem; 
-    color: var(--red); 
-    font-weight: 700; 
-}
-
-/* Color Swatches - MODIFICADO CON OTHER COLOR */
-.color-swatches { 
-    display: grid; 
-    grid-template-columns: repeat(3, 1fr); 
-    gap: 1.5rem; 
-}
-
-.color-option-wrapper { 
-    cursor: pointer; 
-    text-align: center; 
-}
-
-.color-swatch { 
-    aspect-ratio: 1; 
-    border-radius: 16px; 
-    border: 3px solid transparent; 
-    transition: all 0.3s; 
-    position: relative; 
-    box-shadow: inset 0 2px 8px rgba(0,0,0,0.2); 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.color-swatch.selected { 
-    border-color: var(--red); 
-    transform: scale(1.05); 
-}
-
-.color-swatch.selected::after { 
-    content: '✓'; 
-    position: absolute; 
-    top: 50%; 
-    left: 50%; 
-    transform: translate(-50%, -50%); 
-    width: 32px; 
-    height: 32px; 
-    background: var(--red); 
-    border-radius: 50%; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    font-size: 16px; 
-    color: white; 
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3); 
-    z-index: 2;
-}
-
-/* NUEVO: Estilo especial para Other Color */
-.color-swatch.other-color {
-    background: linear-gradient(135deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #ffeaa7, #dfe6e9, #fd79a8, #a29bfe);
-    background-size: 200% 200%;
-    animation: gradientShift 3s ease infinite;
-    position: relative;
-}
-
-@keyframes gradientShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-.color-swatch.other-color::before {
-    content: '🎨';
-    font-size: 2rem;
-    position: absolute;
-    z-index: 1;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-}
-
-.color-swatch.other-color.selected::after {
-    z-index: 3;
-}
-
-.color-label { 
-    margin-top: 0.75rem; 
-    font-size: 0.85rem; 
-    color: rgba(255,255,255,0.8); 
-    font-weight: 500; 
-}
-
-/* Extras List - SIN PRECIOS VISIBLES */
-.extras-list { 
-    display: flex; 
-    flex-direction: column; 
-    gap: 0.75rem; 
-}
-
-.extra-item { 
-    display: flex; 
-    align-items: center; 
-    gap: 1rem; 
-    padding: 1.25rem; 
-    background: rgba(255,255,255,0.05); 
-    border-radius: 16px; 
-    cursor: pointer; 
-    transition: all 0.3s; 
-    border: 2px solid transparent; 
-}
-
-.extra-item:hover { 
-    background: rgba(255,255,255,0.08); 
-}
-
-.extra-item.selected { 
-    border-color: var(--red); 
-    background: rgba(225,29,36,0.1); 
-}
-
-.extra-checkbox { 
-    width: 28px; 
-    height: 28px; 
-    border: 2px solid rgba(255,255,255,0.3); 
-    border-radius: 8px; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    transition: all 0.3s; 
-    flex-shrink: 0; 
-    font-size: 16px; 
-    color: white; 
-}
-
-.extra-item.selected .extra-checkbox { 
-    background: var(--red); 
-    border-color: var(--red); 
-}
-
-.extra-icon { 
-    font-size: 1.75rem; 
-}
-
-.extra-info { 
-    flex: 1; 
-}
-
-.extra-name { 
-    font-weight: 600; 
-    font-size: 1rem; 
-    margin-bottom: 0.25rem; 
-    color: rgba(255,255,255,0.9); 
-}
-
-.extra-desc { 
-    font-size: 0.85rem; 
-    color: rgba(255,255,255,0.5); 
-}
-
-/* OCULTO: Precio de extras no se muestra */
-.extra-price { 
-    display: none;
-}
-
-/* Quote Button */
-.quote-btn-container { 
-    padding: 1.5rem 2rem; 
-    border-top: 1px solid rgba(255,255,255,0.1); 
-}
-
-.btn-quote { 
-    width: 100%; 
-    padding: 1.25rem; 
-    background: var(--red); 
-    color: white; 
-    border: none; 
-    border-radius: 100px; 
-    font-family: var(--font-serif); 
-    font-size: 1.2rem; 
-    font-weight: 600; 
-    cursor: pointer; 
-    transition: all 0.4s var(--ease-out-expo); 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    gap: 0.75rem; 
-}
-
-.btn-quote:hover { 
-    background: var(--red-dark); 
-    transform: translateY(-3px); 
-    box-shadow: 0 12px 40px rgba(225,29,36,0.4); 
-}
-
-/* ==========================================
-   LEAD FORM SECTION - CON SUCCESS MESSAGE
-   ========================================== */
-.lead-form { 
-    padding: 6rem 0rem; 
-    background: var(--white); 
-    position: relative; 
-}
-
-.lead-form::before { 
-    content: ''; 
-    position: absolute; 
-    top: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 100%; 
-    background-image: url('img/hero_bg.jpg'); 
-    background-size: cover; 
-    background-position: center; 
-    opacity: 0.03; 
-    pointer-events: none; 
-}
-
-.form-container { 
-    max-width: 900px; 
-    margin: 0 auto; 
-    background: rgba(255,255,255,0.95); 
-    padding: 3.5rem; 
-    border-radius: 32px; 
-    position: relative; 
-    box-shadow: 0 40px 80px rgba(0,0,0,0.1); 
-    border: 1px solid rgba(0,0,0,0.05); 
-    backdrop-filter: blur(20px); 
-}
-
-/* NUEVO: Contenedor del formulario con transiciones */
-#formContent {
-    transition: all 0.4s var(--ease-out-expo);
-}
-
-/* NUEVO: Mensaje de éxito */
-#successMessage {
-    text-align: center;
-    padding: 3rem 2rem;
-}
-
-#successMessage h2 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    color: var(--black);
-    font-family: var(--font-serif);
-    font-weight: 300;
-}
-
-#successMessage > p {
-    font-size: 1.2rem;
-    color: #666;
-    margin-bottom: 2rem;
-    line-height: 1.6;
-}
-
-.success-icon-wrapper {
-    width: 100px;
-    height: 100px;
-    background: #22c55e;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 2rem;
-    animation: scaleIn 0.5s var(--ease-out-expo);
-    box-shadow: 0 20px 40px rgba(34, 197, 94, 0.3);
-}
-
-@keyframes scaleIn {
-    0% {
-        transform: scale(0);
-        opacity: 0;
-    }
-    50% {
-        transform: scale(1.1);
-    }
-    100% {
-        transform: scale(1);
-        opacity: 1;
-    }
-}
-
-.success-icon-wrapper i {
-    font-size: 3rem;
-    color: white;
-}
-
-.success-info-box {
-    background: var(--beige);
-    padding: 1.5rem;
-    border-radius: 16px;
-    margin-bottom: 2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-}
-
-.success-info-box p {
-    color: #666;
-    font-size: 0.95rem;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-}
-
-.success-info-box i {
-    color: var(--red);
-}
-
-/* NUEVO: Botón de nueva cotización */
-#successMessage .btn-submit {
-    max-width: 300px;
-    margin: 0 auto;
-}
-
-.form-header { 
-    text-align: center; 
-    margin-bottom: 2.5rem; 
-}
-
-.form-header h2 { 
-    font-size: 2.5rem; 
-    margin-bottom: 0.75rem; 
-    font-weight: 300; 
-}
-
-.form-header p { 
-    color: #666; 
-    font-size: 1.1rem; 
-}
-
-/* Summary Box - CON DISCLAIMER */
-.summary-box { 
-    background: linear-gradient(135deg, var(--beige) 0%, #fff 100%); 
-    padding: 2rem; 
-    border-radius: 20px; 
-    margin-bottom: 2.5rem; 
-    border: 1px solid rgba(0,0,0,0.05); 
-}
-
-.summary-title { 
-    font-size: 0.9rem; 
-    text-transform: uppercase; 
-    letter-spacing: 0.05em; 
-    color: #888; 
-    margin-bottom: 1.5rem; 
-    font-weight: 700; 
-}
-
-.summary-row { 
-    display: flex; 
-    justify-content: space-between; 
-    padding: 0.75rem 0; 
-    border-bottom: 1px solid rgba(0,0,0,0.1); 
-    font-size: 1rem; 
-}
-
-.summary-row:last-child { 
-    border-bottom: none; 
-    font-weight: 700; 
-    color: var(--red); 
-    font-size: 1.25rem; 
-    margin-top: 0.5rem; 
-    padding-top: 1rem; 
-    border-top: 2px solid var(--red); 
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-}
-
-/* Disclaimer de precio estimado */
-.price-disclaimer {
-    font-size: 0.85rem;
-    color: #888;
-    font-weight: 400;
-    font-style: italic;
-    line-height: 1.4;
-    margin-top: 0.5rem;
-}
-
-/* Form Elements */
-.form-group { 
-    margin-bottom: 1.5rem; 
-}
-
-.form-group label { 
-    display: block; 
-    margin-bottom: 0.5rem; 
-    font-weight: 600; 
-    color: var(--black); 
-    font-size: 0.95rem; 
-}
-
-.form-group input, 
-.form-group textarea { 
-    width: 100%; 
-    padding: 1rem 1.25rem; 
-    border: 2px solid rgba(0,0,0,0.1); 
-    border-radius: 12px; 
-    font-family: var(--font-sans); 
-    font-size: 1rem; 
-    transition: all 0.3s var(--ease-out-expo); 
-    background: rgba(255,255,255,0.8); 
-}
-
-.form-group input:focus, 
-.form-group textarea:focus { 
-    outline: none; 
-    border-color: var(--red); 
-    box-shadow: 0 0 0 4px rgba(225, 29, 36, 0.1); 
-    background: white; 
-}
-
-.form-group input.error { 
-    border-color: var(--red); 
-    background: rgba(225, 29, 36, 0.05); 
-}
-
-.form-group .error-message { 
-    color: var(--red); 
-    font-size: 0.85rem; 
-    margin-top: 0.5rem; 
-    display: none; 
-}
-
-.form-group .error-message.show { 
-    display: block; 
-}
-
-.form-row { 
-    display: grid; 
-    grid-template-columns: 1fr 1fr; 
-    gap: 1.5rem; 
-}
-
-/* Submit Button */
-.btn-submit { 
-    width: 100%; 
-    padding: 1.25rem; 
-    background: var(--red); 
-    color: var(--white); 
-    border: 2px solid var(--red); 
-    border-radius: 100px; 
-    font-family: var(--font-serif); 
-    font-size: 1.2rem; 
-    font-weight: 700; 
-    cursor: pointer; 
-    transition: all 0.4s var(--ease-out-expo); 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    gap: 0.75rem; 
-    margin-top: 1rem; 
-}
-
-.btn-submit:hover { 
-    background: transparent; 
-    color: var(--red); 
-    transform: translateY(-3px); 
-    box-shadow: 0 20px 40px rgba(225,29,36,0.2); 
-}
-
-.btn-submit:disabled { 
-    opacity: 0.6; 
-    cursor: not-allowed; 
-    transform: none; 
-}
-
-.spinner { 
-    width: 20px; 
-    height: 20px; 
-    border: 2px solid transparent; 
-    border-top-color: currentColor; 
-    border-radius: 50%; 
-    animation: spin 0.8s linear infinite; 
-}
-
-@keyframes spin { 
-    to { transform: rotate(360deg); } 
-}
-
-/* ==========================================
-   TESTIMONIALS SECTION
-   ========================================== */
-.testimonials { 
-    padding: 8rem 2rem; 
-    background: linear-gradient(135deg, var(--beige) 0%, var(--white) 100%); 
-    position: relative; 
-    overflow: hidden; 
-}
-
-.testimonials::before { 
-    content: '"'; 
-    position: absolute; 
-    top: 2rem; 
-    left: 50%; 
-    transform: translateX(-50%); 
-    font-family: var(--font-serif); 
-    font-size: 20rem; 
-    color: rgba(0,0,0,0.03); 
-    line-height: 1; 
-    pointer-events: none; 
-}
-
-.testimonials-grid { 
-    max-width: 1400px; 
-    margin: 0 auto; 
-    display: grid; 
-    grid-template-columns: repeat(3, 1fr); 
-    gap: 2rem; 
-}
-
-/* Testimonial Card */
-.testimonial-card { 
-    background: var(--white); 
-    padding: 2.5rem; 
-    border-radius: 24px; 
-    transition: all 0.5s var(--ease-out-expo); 
-    display: flex; 
-    flex-direction: column; 
-    height: 100%; 
-    min-height: 320px; 
-    border: 1px solid rgba(0,0,0,0.05); 
-    position: relative; 
-}
-
-.testimonial-card::before { 
-    content: ''; 
-    position: absolute; 
-    top: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 4px; 
-    background: linear-gradient(90deg, var(--red), #ff6b6b); 
-    transform: scaleX(0); 
-    transform-origin: left; 
-    transition: transform 0.5s var(--ease-out-expo); 
-    border-radius: 24px 24px 0 0; 
-}
-
-.testimonial-card:hover { 
-    transform: translateY(-10px); 
-    box-shadow: 0 30px 60px rgba(0,0,0,0.1); 
-}
-
-.testimonial-card:hover::before { 
-    transform: scaleX(1); 
-}
-
-.stars { 
-    color: #f5b042; 
-    margin-bottom: 1.5rem; 
-    font-size: 1.3rem; 
-    letter-spacing: 0.1em; 
-}
-
-.testimonial-text { 
-    font-style: italic; 
-    margin-bottom: 2rem; 
-    line-height: 1.8; 
-    flex-grow: 1; 
-    color: #444; 
-    font-size: 1.05rem; 
-    font-weight: 300; 
-}
-
-/* Author Section con Foto */
-.testimonial-author { 
-    display: flex; 
-    align-items: center; 
-    gap: 1rem; 
-    margin-top: auto; 
-}
-
-/* Foto de la persona */
-.author-photo {
-    width: 60px; 
-    height: 60px; 
-    border-radius: 50%; 
-    overflow: hidden;
-    flex-shrink: 0;
-    box-shadow: 0 8px 20px rgba(225,29,36,0.3);
-    transition: all 0.4s var(--ease-out-expo);
-    border: 3px solid var(--white);
-}
-
-.author-photo img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-}
-
-.testimonial-card:hover .author-photo { 
-    transform: scale(1.1); 
-    box-shadow: 0 12px 30px rgba(225,29,36,0.4);
-}
-
-.author-info h5 {
-    font-family: var(--font-sans);
-    font-weight: 600;
-    font-size: 1rem;
-    color: var(--black);
-    margin-bottom: 0.25rem;
-}
-
-.author-info span {
-    font-size: 0.9rem;
-    color: #888;
-}
-
-/* ==========================================
-   GALLERY SECTION
-   ========================================== */
-.gallery { 
-    padding: 6rem 0 0 0; 
-    background: var(--white); 
-}
-
-.gallery-grid { 
-    display: grid; 
-    grid-template-columns: repeat(4, 1fr); 
-    gap: 0; 
-}
-
-.gallery-item { 
-    width: 100%; 
-    aspect-ratio: 1 / 1; 
-    overflow: hidden; 
-    position: relative; 
-    cursor: pointer; 
-}
-
-.gallery-item::before { 
-    content: ''; 
-    position: absolute; 
-    top: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 100%; 
-    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%); 
-    opacity: 0; 
-    transition: opacity 0.4s; 
-    z-index: 2; 
-}
-
-.gallery-item:hover::before { 
-    opacity: 1; 
-}
-
-.gallery-item img { 
-    width: 100%; 
-    height: 100%; 
-    object-fit: cover; 
-    transition: transform 0.8s var(--ease-out-expo); 
-}
-
-.gallery-item:hover img { 
-    transform: scale(1.15); 
-}
-
-.gallery-overlay { 
-    position: absolute; 
-    bottom: 0; 
-    left: 0; 
-    width: 100%; 
-    padding: 2rem; 
-    color: white; 
-    transform: translateY(100%); 
-    transition: transform 0.4s var(--ease-out-expo); 
-    z-index: 3; 
-}
-
-.gallery-item:hover .gallery-overlay { 
-    transform: translateY(0); 
-}
-
-/* ==========================================
-   FINAL CTA SECTION
-   ========================================== */
-.final-cta { 
-    padding: 8rem 2rem; 
-    background: var(--black); 
-    color: var(--white); 
-    text-align: center; 
-    position: relative; 
-    overflow: hidden; 
-}
-
-.final-cta::before { 
-    content: ''; 
-    position: absolute; 
-    top: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 100%; 
-    background: radial-gradient(circle at 50% 50%, rgba(225,29,36,0.1) 0%, transparent 70%); 
-    pointer-events: none; 
-}
-
-.final-cta h2 { 
-    font-size: clamp(2.5rem, 5vw, 4rem); 
-    margin-bottom: 1.5rem; 
-    font-weight: 300; 
-    position: relative; 
-    z-index: 2; 
-}
-
-.final-cta > div > p { 
-    font-size: 1.25rem; 
-    color: rgba(255,255,255,0.7); 
-    margin-bottom: 2.5rem; 
-    font-weight: 300; 
-    position: relative; 
-    z-index: 2; 
-}
-
-.cta-btn { 
-    padding: 1.25rem 2.5rem; 
-    border-radius: 100px; 
-    text-decoration: none; 
-    font-weight: 600; 
-    transition: all 0.4s var(--ease-out-expo); 
-    font-family: var(--font-serif); 
-    font-size: 1.2rem; 
-    position: relative; 
-    overflow: hidden; 
-    display: inline-flex; 
-    align-items: center; 
-    gap: 0.75rem; 
-}
-
-.cta-btn-primary { 
-    background: var(--red); 
-    color: var(--white); 
-    border: 2px solid var(--red); 
-}
-
-.cta-btn-primary:hover { 
-    background: transparent; 
-    color: var(--white); 
-    transform: translateY(-5px); 
-    box-shadow: 0 20px 40px rgba(225,29,36,0.4); 
-}
-
-.cta-btn-secondary { 
-    background: transparent; 
-    color: var(--white); 
-    border: 2px solid rgba(255,255,255,0.3); 
-}
-
-.cta-btn-secondary:hover { 
-    background: var(--white); 
-    color: var(--black); 
-    border-color: var(--white); 
-    transform: translateY(-5px); 
-}
-
-.phone-cta { 
-    margin-top: 3rem; 
-    font-family: var(--font-serif); 
-    font-size: 1.3rem; 
-    position: relative; 
-    z-index: 2; 
-}
-
-.phone-cta a { 
-    color: var(--red); 
-    text-decoration: none; 
-    font-size: 1.6rem; 
-    font-weight: 700; 
-    transition: all 0.3s; 
-    display: inline-block; 
-}
-
-.phone-cta a:hover { 
-    transform: scale(1.1); 
-    text-shadow: 0 0 30px rgba(225,29,36,0.5); 
-}
-
-/* ==========================================
-   FOOTER
-   ========================================== */
-.footer { 
-    padding: 5rem 2rem 2rem; 
-    background: #050505; 
-    color: #888; 
-    width: 100%; 
-    position: relative; 
-}
-
-.footer::before { 
-    content: ''; 
-    position: absolute; 
-    top: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 1px; 
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); 
-}
-
-.footer-content { 
-    max-width: 1200px; 
-    margin: 0 auto; 
-    display: grid; 
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
-    gap: 3rem; 
-    margin-bottom: 4rem; 
-}
-
-.footer-section h4 { 
-    color: var(--white); 
-    margin-bottom: 1.5rem; 
-    font-size: 1.2rem; 
-    font-weight: 500; 
-    position: relative; 
-    display: inline-block; 
-}
-
-.footer-section h4::after { 
-    content: ''; 
-    position: absolute; 
-    bottom: -8px; 
-    left: 0; 
-    width: 30px; 
-    height: 2px; 
-    background: var(--red); 
-}
-
-/* Footer links con icono y texto en línea */
-.footer-section p { 
-    color: #888; 
-    line-height: 2; 
-    display: flex; 
-    align-items: center; 
-    gap: 0.5rem;
-    margin-bottom: 0.5rem;
-}
-
-.footer-section a { 
-    color: #888; 
-    text-decoration: none; 
-    line-height: 2; 
-    transition: all 0.3s; 
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.footer-section a:hover { 
-    color: var(--red); 
-    transform: translateX(5px); 
-}
-
-/* Social Icons */
-.social-icons { 
-    display: flex; 
-    gap: 1rem; 
-    margin-top: 1.5rem; 
-}
-
-.social-icons a { 
-    background: rgba(255,255,255,0.05); 
-    width: 45px; 
-    height: 45px; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    border-radius: 50%; 
-    transition: all 0.4s var(--ease-out-expo); 
-    color: white; 
-    border: 1px solid rgba(255,255,255,0.1); 
-}
-
-.social-icons a:hover { 
-    background: var(--red); 
-    color: white;
-    transform: translateY(-5px) scale(1.1); 
-    border-color: var(--red); 
-    box-shadow: 0 10px 20px rgba(225,29,36,0.3); 
-}
-
-.footer-bottom { 
-    text-align: center; 
-    padding-top: 3rem; 
-    border-top: 1px solid rgba(255,255,255,0.05); 
-    font-size: 0.9rem; 
-}
-
-/* ==========================================
-   RESPONSIVE - MEDIA QUERIES
-   ========================================== */
-@media (max-width: 992px) {
-    .about-container, 
-    .config-layout { 
-        grid-template-columns: 1fr; 
-        gap: 3rem; 
-    }
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
     
-    .gallery-grid { 
-        grid-template-columns: repeat(2, 1fr); 
-    }
-    
-    .testimonials-grid { 
-        grid-template-columns: 1fr; 
-    }
-    
-    .benefits-grid { 
-        grid-template-columns: 1fr; 
-    }
-    
-    .before-after { 
-        height: 400px; 
-    }
-}
 
-@media (max-width: 768px) {
-    /* Hero */
-    .hero-logo-img { 
-        height: 140px; 
-        width: 140px; 
-    }
-    
-    /* Formulario más ancho en mobile */
-    .form-container { 
-        padding: 1.5rem;
-        margin: 0 0.5rem;
-        max-width: 100%;
-        border-radius: 20px;
-    }
-    
-    /* NUEVO: Ajustes para mensaje de éxito en mobile */
-    #successMessage {
-        padding: 2rem 1rem;
-    }
-    
-    #successMessage h2 {
-        font-size: 2rem;
-    }
-    
-    .success-icon-wrapper {
-        width: 80px;
-        height: 80px;
-    }
-    
-    .success-icon-wrapper i {
-        font-size: 2.5rem;
-    }
-    
-    .form-header h2 { 
-        font-size: 1.75rem; 
-    }
-    
-    .form-header p { 
-        font-size: 1rem; 
-    }
-    
-    .summary-box { 
-        padding: 1.25rem; 
-    }
-    
-    .summary-row { 
-        flex-direction: column; 
-        gap: 0.25rem; 
-        padding: 0.5rem 0; 
-    }
-    
-    .summary-row span:first-child { 
-        font-size: 0.85rem; 
-        color: #888; 
-    }
-    
-    .summary-row span:last-child { 
-        font-weight: 600; 
-    }
-    
-    .summary-row:last-child { 
-        flex-direction: column; 
-        align-items: flex-start; 
-    }
-    
-    .form-row { 
-        grid-template-columns: 1fr; 
-        gap: 1rem; 
-    }
-    
-    .form-group input, 
-    .form-group textarea { 
-        padding: 0.875rem 1rem; 
-        font-size: 16px; 
-    }
-    
-    .btn-submit { 
-        padding: 1rem; 
-        font-size: 1.1rem; 
-    }
-    
-    /* Gallery */
-    .gallery-grid { 
-        grid-template-columns: 1fr; 
-    }
-    
-    /* Configurator - MEJORAS EN MOBILE */
-    .config-layout { 
-        grid-template-columns: 1fr; 
-        gap: 0; 
-    }
-    
-    .config-preview-panel { 
-        position: relative; 
-        top: 0; 
-        order: -1; 
-        margin-bottom: 2rem; 
-    }
-    
-    .preview-image-container { 
-        aspect-ratio: 16/10; 
-    }
-    
-    /* MEJORA: Tabs más anchos en mobile */
-    .tabs-header {
-        padding: 0.5rem;
-        gap: 0.25rem;
-    }
-    
-    .tab-btn {
-        min-width: 70px;
-        padding: 1rem 0.75rem;
-        font-size: 0.75rem;
-        border-radius: 12px;
-        margin: 0 2px;
-    }
-    
-    .tab-btn i {
-        font-size: 1.1rem;
-    }
-    
-    .options-grid { 
-        grid-template-columns: repeat(2, 1fr); 
-        gap: 0.75rem; 
-    }
-    
-    .option-card { 
-        padding: 1rem; 
-    }
-    
-    .color-swatches { 
-        grid-template-columns: repeat(3, 1fr); 
-        gap: 1rem; 
-    }
-    
-    .tab-content { 
-        padding: 1.5rem; 
-    }
-    
-    /* Hero */
-    .hero { 
-        padding: 3rem 1rem; 
-    }
-    
-    .cta-buttons { 
-        flex-direction: column; 
-        width: 100%; 
-    }
-    
-    .hero-cta, 
-    .cta-btn-secondary { 
-        width: 100%; 
-        justify-content: center; 
-    }
-    
-    /* About */
-    .about-image { 
-        height: 400px; 
-    }
-    
-    /* Modal en mobile */
-    .modal-content {
-        margin: 1rem;
-        max-height: 95vh;
-    }
-    
-    .modal-header {
-        padding: 1.5rem;
-    }
-    
-    .modal-body {
-        padding: 1.5rem;
-    }
-    
-    .modal-pdf-container {
-        height: 350px;
-    }
-}
+    <!-- Font Awesome 6 (iconos) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-/* MEJORA ADICIONAL: Tabs más accesibles en mobile pequeño */
-@media (max-width: 480px) {
-    .tab-btn {
-        min-width: 60px;
-        padding: 0.875rem 0.5rem;
-        font-size: 0.7rem;
-    }
-    
-    .tab-btn i {
-        font-size: 1rem;
-    }
-    
-    .options-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    /* NUEVO: Ajustes extra para éxito en pantallas muy pequeñas */
-    #successMessage h2 {
-        font-size: 1.75rem;
-    }
-    
-    .success-info-box {
-        padding: 1rem;
-    }
-    
-    .success-info-box p {
-        font-size: 0.9rem;
-        flex-direction: column;
-        gap: 0.25rem;
-    }
-    
-    .modal-pdf-container {
-        height: 300px;
-    }
-}
+        :root {
+            --primary-blue: #0066FF;
+            --dark-blue: #0044CC;
+            --light-blue: #3385FF;
+            --bg-white: #FFFFFF;
+            --text-dark: #1a1a1a;
+            --text-light: #ffffff;
+            --gray-bg: #f5f5f5;
+            --black-bg: #1a1a1a;
+        }
 
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-white);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
 
-.textos-small{
-    font-size: 0.8rem;
-    padding-top: 9px;
-}
-</style>
+        /* Hero Section - SIN BRILLO Y PEGADO A LA SIGUIENTE SECCIÓN */
+        .hero {
+            min-height: auto;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f4ff 100%);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 0;
+            padding: 0;
+        }
 
+        .hero::before {
+            display: none;
+        }
+
+        .hero-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+            width: 100%;
+        }
+
+        .hero-image {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .hero-image img {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            display: block;
+            margin: 0;
+            filter: none;
+            box-shadow: none;
+        }
+
+        .hero-content {
+            padding-left: 2rem;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 800;
+            color: var(--primary-blue);
+            line-height: 1;
+            margin-bottom: 1rem;
+            letter-spacing: -2px;
+            animation: slideInLeft 1s ease-out;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            color: #666;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            animation: slideInLeft 1s ease-out 0.2s both;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Biography Section - PEGADA AL HERO SIN ESPACIO */
+        .bio-section {
+            background: linear-gradient(180deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
+            color: var(--text-light);
+            padding: 6rem 5%;
+            position: relative;
+            overflow: hidden;
+            margin-top: 0;
+        }
+
+        .bio-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.1)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .bio-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .bio-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .bio-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+            opacity: 0.9;
+        }
+
+        .bio-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            font-weight: 300;
+            opacity: 0.95;
+        }
+
+        /* Music Grid Section - SIN CARRUSEL, CON GRID ESTÁTICA */
+        .music-section {
+            background: var(--gray-bg);
+            padding: 6rem 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 4rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        /* Grid de canciones */
+        .music-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        @media (max-width: 1024px) {
+            .music-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .music-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+        }
+
+        .music-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .music-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        /* Imagen 1:1 (cuadrada) */
+        .music-card-image-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            background: #f5f5f5;
+        }
+
+        .music-card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .music-card:hover .music-card-image {
+            transform: scale(1.08);
+        }
+
+        .play-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 102, 255, 0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .music-card:hover .play-overlay {
+            opacity: 1;
+        }
+
+        .play-button {
+            width: 70px;
+            height: 70px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            transform: scale(0.8);
+        }
+
+        .music-card:hover .play-button {
+            transform: scale(1);
+        }
+
+        .play-button:hover {
+            transform: scale(1.1) !important;
+            box-shadow: 0 12px 35px rgba(0,0,0,0.4);
+        }
+
+        .play-icon {
+            width: 0;
+            height: 0;
+            border-left: 25px solid var(--primary-blue);
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+            margin-left: 8px;
+        }
+
+        .music-card-content {
+            padding: 1.8rem;
+            text-align: center;
+            background: white;
+        }
+
+        .music-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .music-genre {
+            font-size: 0.85rem;
+            color: var(--primary-blue);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        /* Botón Escuchar Canción */
+        .listen-button {
+            display: inline-block;
+            background: var(--primary-blue);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary-blue);
+            cursor: pointer;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .listen-button:hover {
+            background: var(--dark-blue);
+            border-color: var(--dark-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,102,255,0.3);
+        }
+
+        /* Partners/Logos Section - FONDO NEGRO #1a1a1a */
+        .partners-section {
+            background: var(--black-bg);
+            padding: 5rem 5%;
+            overflow: hidden;
+        }
+
+        .partners-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .partners-track {
+            display: flex;
+            gap: 4rem;
+            animation: scroll 25s linear infinite;
+            width: max-content;
+        }
+
+        .partners-track:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .partner-logo {
+            height: 60px;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: white;
+            font-size: 1.5rem;
+            white-space: nowrap;
+            padding: 0 2rem;
+        }
+
+        .partner-logo:hover {
+            opacity: 1;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: linear-gradient(180deg, var(--dark-blue) 0%, #002a80 100%);
+            color: white;
+            padding: 5rem 5%;
+            text-align: center;
+        }
+
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-title {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .contact-subtitle {
+            opacity: 0.9;
+            font-size: 1.1rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .contact-grid {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.1);
+            padding: 1rem 1.8rem;
+            border-radius: 50px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .contact-item:hover {
+            transform: translateY(-3px);
+            background: rgba(255,255,255,0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .contact-item i {
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        .contact-link {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+            font-weight: 500;
+            font-size: 1.2rem;
+        }
+
+        .contact-link:hover {
+            opacity: 0.9;
+            text-decoration: underline;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .social-link {
+            width: 60px;
+            height: 60px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            color: white;
+            text-decoration: none;
+            background: rgba(255,255,255,0.05);
+            font-size: 2rem;
+        }
+
+        .social-link:hover {
+            background: white;
+            color: var(--primary-blue);
+            transform: translateY(-5px) scale(1.1);
+            border-color: white;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 0;
+                padding: 0;
+            }
+
+            .hero-content {
+                padding-left: 0;
+                order: -1;
+                padding: 2rem 2rem 0 2rem;
+            }
+
+            .hero-image {
+                order: 2;
+                margin: 0;
+                padding: 0;
+            }
+
+            .hero-image img {
+                max-width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+
+            .hero {
+                padding: 0;
+            }
+
+            .contact-grid {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: center;
+            }
+
+            .contact-item {
+                width: 100%;
+                max-width: 350px;
+                justify-content: center;
+            }
+        }
+    </style>
+<base target="_blank">
 </head>
 <body>
 
-<div class="scroll-progress"></div>
-
-<div class="toast" id="toast">
-    <i class="fas fa-check-circle"></i>
-    <span id="toastMessage">Message sent!</span>
-</div>
-
-<!-- ⭐ MODAL OTHER COLOR CON PDF EMBED -->
-<div class="modal-overlay" id="colorModal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h3>Choose Your Custom Color</h3>
-            <button class="modal-close" onclick="closeColorModal()">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        <div class="modal-body">
-            <p style="margin-bottom: 1rem; color: #666;">Browse our extensive color catalog with over 200 options. Find the perfect shade for your closet!</p>
-            
-            <!-- ⭐ PDF EMBED CON SCROLL -->
-            <div class="modal-pdf-container">
-                <iframe src="img/pdf/catalog_other_colors.pdf" 
-                        title="Color Catalog PDF" 
-                        type="application/pdf">
-                    <p style="padding: 2rem; text-align: center; color: #666;">
-                        Your browser does not support PDFs. 
-                        <a href="img/pdf/catalog_other_colors.pdf" target="_blank" style="color: var(--red);">Download the PDF</a>
-                    </p>
-                </iframe>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-image">
+                <img src="img/about-us/foto-perfil.webp" alt="JanuFlow - Music Producer">
             </div>
-            
-            <p style="font-size: 0.9rem; color: #888; margin-top: 1rem;">
-                <i class="fas fa-info-circle"></i> 
-                After selecting your color, please note the code and enter it in the "Additional notes" field in the quote form.
+            <div class="hero-content">
+                <h1 class="hero-title">JanuFlow</h1>
+                <p class="hero-subtitle">Songwriter & Music Producer</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Biography Section - PEGADA SIN ESPACIO -->
+    <section class="bio-section">
+        <div class="bio-container">
+            <div class="bio-header">
+                <div class="bio-name">Januel Eduardo Acosta Gonzalez | A.K.A. JanuFlow</div>
+            </div>
+            <p class="bio-text">
+                Escribo canciones que conectan. Con 10 años de trayectoria, me especializo en desarrollar letras y melodías con un enfoque emocional entre el R&B, Pop Urbano y Balada. Mi fuerte es la arquitectura de la canción: desde la narrativa hasta melodías vocales listas para el estudio. Entrego maquetas impecables diseñadas para que el artista las haga suyas, aportando la madurez y precisión que solo una década de oficio puede ofrecer.
             </p>
         </div>
-        <div class="modal-footer">
-            <button class="btn-modal" onclick="confirmOtherColor()">
-                <i class="fas fa-check"></i>
-                Done, I've chosen my color
-            </button>
-        </div>
-    </div>
-</div>
+    </section>
 
-<a href="#configurator" class="floating-customizer">
-    <i class="fas fa-paintbrush"></i>
-</a>
-
-<!-- Hero -->
-<section class="hero">
-    <div class="hero-logo">
-        <img src="img/logo/logo-911-closets.png" alt="911 Closets" class="hero-logo-img" onerror="this.src='https://placehold.co/200x200/e11d24/white?text=911'">
-    </div>
-    <div class="hero-container">
-        <div class="hero-content">
-            <h1>Design the <em>closet</em> you've <br>always dreamed of</h1>
-            <p class="hero-subtitle">Custom storage solutions that transform your space and simplify your life. Premium design, professional installation.</p>
-            <div class="cta-buttons">
-                <a href="#configurator" class="hero-cta">Design Your Closet <i class="fas fa-arrow-right"></i></a>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Before After -->
-<section class="before-after-section">
-    <div class="before-after" id="beforeAfter">
-        <div class="ba-container" id="baContainer">
-            <div class="ba-labels">
-                <span class="ba-label">Before</span>
-                <span class="ba-label">After</span>
-            </div>
-            <img class="ba-img ba-after" src="img/before-after/after.webp" alt="After">
-            <img class="ba-img ba-before" src="img/before-after/before.webp" alt="Before">
-            <div class="ba-slider" id="baSlider"></div>
-        </div>
-    </div>
-</section>
-
-<!-- About -->
-<section class="about" id="about">
-    <div class="about-container">
-        <div class="about-text">
-            <h2>Where your space meets our designer style.</h2>
-            <p>At 911 Closets, we understand that your home is your refuge, and every space deserves to be functional without losing its style. Born in the heart of South Florida with a clear mission: to rescue your spaces from chaos and transform them into organized, modern places specially designed for you.</p>
-            <p>We know life is hectic. That's why our promise is simple: speed without sacrificing quality. From the first contact to final installation, we work with the urgency of a real rescue, but with the precision and detail of author design.</p>
-            <a href="#configurator" class="about-cta">Design Your Closet <i class="fas fa-arrow-right"></i></a>
-        </div>
-        <div class="about-image-container">
-            <img class="about-image" src="img/about-us/about-us.webp" alt="Craftsman building custom closet">
-        </div>
-    </div>
-</section>
-
-<!-- Benefits -->
-<section class="benefits" id="benefits">
-    <div class="section-header">
-        <h2>Why choose 911 Closets?</h2>
-        <p>We transform your spaces with speed, style, and professionalism</p>
-    </div>
-    <div class="benefits-grid">
-        <div class="benefit-card">
-            <div class="benefit-icon">✦</div>
-            <h3>Personalized Design</h3>
-            <p class="textos-small">Each space is unique, each closet too. We design specifically for your needs and lifestyle.</p>
-        </div>
-        <div class="benefit-card">
-            <div class="benefit-icon">✦</div>
-            <h3>Premium Materials</h3>
-            <p class="textos-small">We use only top-quality materials, durable hardware, and impeccable finishes.</p>
-        </div>
-        <div class="benefit-card">
-            <div class="benefit-icon">✦</div>
-            <h3>Expert Installation</h3>
-            <p class="textos-small"> Our certified team guarantees a perfect finish and respect for your home.</p>
-        </div>
-        <div class="benefit-card">
-            <div class="benefit-icon" >✦</div>
-            <h3>Rescue Express</h3>
-            <p class="textos-small">We install in record time without sacrificing quality. Most projects in under 7 days.</p>
-        </div>
-        <div class="benefit-card">
-            <div class="benefit-icon">✦</div>
-            <h3>South Florida Local</h3>
-            <p class="textos-small">We are close to you, serving Miami, Fort Lauderdale, and all of South Florida.</p>
-        </div>
-        <div class="benefit-card">
-            <div class="benefit-icon">✦</div>
-            <h3>Satisfaction Guaranteed</h3>
-            <p class="textos-small">Over 250 families in Florida trust us. Your satisfaction is our priority.</p>
-        </div>
-    </div>
-</section>
-
-<!-- Products -->
-<section class="products" id="products">
-    <div class="section-header">
-        <h2>Our Solutions</h2>
-        <p>From walk-in closets to solutions for every corner of your home</p>
-    </div>
-    <div class="products-grid">
-        
-        <div class="product-card" onclick="document.getElementById('configurator').scrollIntoView({behavior:'smooth'})">
-            <div class="product-img-container">
-                <img src="img/products/reach-in.webp" class="product-img">
-            </div>
-            <div class="product-content">
-                <h3>Reach-in Closet</h3>
-                <p class="textos-small">Double hanging rods and smart shelves maximize every inch of space.</p>
-            </div>
-            <div class="product-arrow"><i class="fas fa-arrow-right"></i></div>
-        </div>
-        <div class="product-card" onclick="document.getElementById('configurator').scrollIntoView({behavior:'smooth'})">
-            <div class="product-img-container">
-                <img src="img/products/walk-in.webp" class="product-img">
-            </div>
-            <div class="product-content">
-                <h3>Walk-in Closet</h3>
-                <p class="textos-small">Every detail designed around you. Your wardrobe, your space, your luxury.</p>
-            </div>
-            <div class="product-arrow"><i class="fas fa-arrow-right"></i></div>
-        </div>
-        
-        <div class="product-card" onclick="document.getElementById('configurator').scrollIntoView({behavior:'smooth'})">
-            <div class="product-img-container">
-                <img src="img/products/wardrobe.webp" class="product-img">
-            </div>
-            <div class="product-content">
-                <h3>Wardrobe</h3>
-                <p class="textos-small">Bring the closet to you. Functional, beautiful, and completely flexible.</p>
-            </div>
-            <div class="product-arrow"><i class="fas fa-arrow-right"></i></div>
-        </div>
-        <div class="product-card" onclick="document.getElementById('configurator').scrollIntoView({behavior:'smooth'})">
-            <div class="product-img-container">
-                <img src="img/products/garage.webp" class="product-img">
-            </div>
-            <div class="product-content">
-                <h3>Garage Solutions</h3>
-                <p class="textos-small">Heavy-duty cabinets and slat walls for a clutter-free garage.</p>
-            </div>
-            <div class="product-arrow"><i class="fas fa-arrow-right"></i></div>
-        </div>
-        <div class="product-card" onclick="document.getElementById('configurator').scrollIntoView({behavior:'smooth'})">
-            <div class="product-img-container">
-                <img src="img/products/pantry.webp" class="product-img">
-            </div>
-            <div class="product-content">
-                <h3>Pantry</h3>
-                <p class="textos-small">Smart pantry design that saves you time and reduces food waste.</p>
-            </div>
-            <div class="product-arrow"><i class="fas fa-arrow-right"></i></div>
-        </div>
-        <div class="product-card" onclick="document.getElementById('configurator').scrollIntoView({behavior:'smooth'})">
-            <div class="product-img-container">
-                <img src="img/products/built-in.webp" class="product-img">
-            </div>
-            <div class="product-content">
-                <h3>Built-in</h3>
-                <p class="textos-small">Furniture that disappears into your walls. Beautiful and functional.</p>
-            </div>
-            <div class="product-arrow"><i class="fas fa-arrow-right"></i></div>
-        </div>
-        <div class="product-card" onclick="document.getElementById('configurator').scrollIntoView({behavior:'smooth'})">
-            <div class="product-img-container">
-                <img src="img/products/linen-closet.webp" class="product-img">
-            </div>
-            <div class="product-content">
-                <h3>Linen Closet</h3>
-                <p class="textos-small">Adjustable shelves for bulky blankets and delicate sheets alike.</p>
-            </div>
-            <div class="product-arrow"><i class="fas fa-arrow-right"></i></div>
-        </div>
-        <div class="product-card" onclick="document.getElementById('configurator').scrollIntoView({behavior:'smooth'})">
-            <div class="product-img-container">
-                <img src="img/products/tv-unit.webp" class="product-img">
-            </div>
-            <div class="product-content">
-                <h3>TV Unit</h3>
-                <p class="textos-small">A media center designed around your screen size and storage needs.</p>
-            </div>
-            <div class="product-arrow"><i class="fas fa-arrow-right"></i></div>
-        </div>
-    </div>
-</section>
-
-<!-- Configurator -->
-<section class="configurator" id="configurator">
-    <div class="configurator-container">
-        <div class="section-header">
-            <h2>Design Your Closet</h2>
-            <p>Customize every detail in seconds</p>
-        </div>
-
-        <div class="config-layout">
-            <div class="config-preview-panel">
-                <div class="preview-image-container">
-                    <img id="previewImage" class="preview-image" src="" alt="Your custom closet">
-                </div>
-                <div class="preview-info">
-                    <h3 id="previewTitle">Reach-in Closet</h3>
-                    <p id="previewSubtitle">Medium Size</p>
-                    <div class="price-badge" id="priceBadge">$3,600</div>
-                </div>
-            </div>
-
-            <div class="config-tabs-panel">
-                <div class="tabs-header">
-                    <button class="tab-btn active" data-tab="product" onclick="switchTab('product')">
-                        <i class="fas fa-door-open"></i>
-                        <span>Product</span>
-                    </button>
-                    <button class="tab-btn" data-tab="size" onclick="switchTab('size')">
-                        <i class="fas fa-ruler-combined"></i>
-                        <span>Size</span>
-                    </button>
-                    <button class="tab-btn" data-tab="finish" onclick="switchTab('finish')">
-                        <i class="fas fa-palette"></i>
-                        <span>Finish</span>
-                    </button>
-                    <button class="tab-btn" data-tab="extras" onclick="switchTab('extras')">
-                        <i class="fas fa-plus-circle"></i>
-                        <span>Extras</span>
-                    </button>
-                </div>
-
-                <div class="tab-content active" id="tab-product">
-                    <h4 class="tab-title">Select Product Type</h4>
-                    <div class="options-grid" id="productOptions"></div>
-                </div>
-
-                <div class="tab-content" id="tab-size">
-                    <h4 class="tab-title">Select Size</h4>
-                    <div class="options-grid" id="sizeOptions"></div>
-                </div>
-
-                <div class="tab-content" id="tab-finish">
-                    <h4 class="tab-title">Select Finish</h4>
-                    <p style="color: rgba(255,255,255,0.6); margin-bottom: 1.5rem; font-size: 0.9rem;">
-                        <i class="fas fa-info-circle"></i> Choose from our standard colors or select "Other Color" to view our full catalog of 200+ options.
-                    </p>
-                    <div class="color-swatches" id="finishOptions"></div>
-                </div>
-
-                <div class="tab-content" id="tab-extras">
-                    <h4 class="tab-title">Add Extras (Optional)</h4>
-                    <p style="color: rgba(255,255,255,0.6); margin-bottom: 1.5rem; font-size: 0.9rem;">
-                        <i class="fas fa-info-circle"></i> Select the extras you'd like to add to your project.
-                    </p>
-                    <div class="extras-list" id="extrasOptions"></div>
-                </div>
-
-                <div class="quote-btn-container">
-                    <button class="btn-quote" id="btnQuote">
-                        Get My Quote <i class="fas fa-arrow-down"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Lead Form -->
-<section class="lead-form" id="quoteForm">
-    <div class="form-container" id="formContainer">
-        
-        <!-- Form Content (visible initially) -->
-        <div id="formContent">
-            <div class="form-header">
-                <h2>Complete Your Quote</h2>
-                <p>We'll send your custom design to your email</p>
-            </div>
-
-            <div class="summary-box">
-                <div class="summary-title">Your Configuration</div>
-                <div class="summary-row">
-                    <span>Product:</span>
-                    <span id="formProduct">-</span>
-                </div>
-                <div class="summary-row">
-                    <span>Size:</span>
-                    <span id="formSize">-</span>
-                </div>
-                <div class="summary-row">
-                    <span>Finish:</span>
-                    <span id="formFinish">-</span>
-                </div>
-                <div class="summary-row">
-                    <span>Extras:</span>
-                    <span id="formExtras">None</span>
-                </div>
-                <div class="summary-row">
-                    <span>Estimated Price:</span>
-                    <span id="formPrice">-</span>
-                    <p class="price-disclaimer">
-                        <i class="fas fa-info-circle"></i> 
-                        This total amount is only an estimate and not the final real price. A specialist will contact you with the exact quote based on your specific requirements and measurements.
-                    </p>
-                </div>
-            </div>
-
-            <form id="leadForm">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Full Name *</label>
-                        <input type="text" id="clientName" required placeholder="John Doe">
-                    </div>
-                    <div class="form-group">
-                        <label>Phone *</label>
-                        <input type="tel" id="clientPhone" required placeholder="(305) 555-1234">
+    <!-- Music Grid Section - SIN CARRUSEL, GRID ESTÁTICA, IMÁGENES 1:1 -->
+    <section class="music-section">
+        <h2 class="section-title">MIS CANCIONES</h2>
+        <div class="music-grid">
+            <!-- Card 1 -->
+            <div class="music-card" onclick="window.open('https://on.soundcloud.com/ZUBG5RuzKs02ufcHbB', '_blank')">
+                <div class="music-card-image-container">
+                    <img src="img/covers/cover-1.webp" alt="Hace Tiempo" class="music-card-image" onerror="this.src='https://via.placeholder.com/400x400/0066FF/ffffff?text=HACE+TIEMPO'">
+                    <div class="play-overlay">
+                        <div class="play-button">
+                            <div class="play-icon"></div>
+                        </div>
                     </div>
                 </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Email *</label>
-                        <input type="email" id="clientEmail" required placeholder="john@example.com">
-                        <div class="error-message" id="emailError">Please enter a valid email address</div>
+                <div class="music-card-content">
+                    <h3 class="music-title">Hace Tiempo</h3>
+                    <p class="music-genre">Pop Urbano | Melancólico/Romántico</p>
+                    <button class="listen-button">Escuchar Canción</button>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="music-card" onclick="window.open('https://on.soundcloud.com/KbJtqMgHtRXCHOP0mr', '_blank')">
+                <div class="music-card-image-container">
+                    <img src="img/covers/cover-2.webp" alt="Hace Tiempo" class="music-card-image" onerror="this.src='https://via.placeholder.com/400x400/0066FF/ffffff?text=PARA+TI'">
+                    <div class="play-overlay">
+                        <div class="play-button">
+                            <div class="play-icon"></div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label>Zip Code *</label>
-                        <input type="text" id="clientZip" required placeholder="33186">
+                </div>
+                <div class="music-card-content">
+                    <h3 class="music-title">Para Ti</h3>
+                    <p class="music-genre">Pop Urbano | Alegre/Romántico</p>
+                    <button class="listen-button">Escuchar Canción</button>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="music-card" onclick="window.open('https://on.soundcloud.com/3OhAX4Iy04ZBH9db9D', '_blank')">
+                <div class="music-card-image-container">
+                    <img src="img/covers/cover-3.webp" alt="Remix" class="music-card-image" onerror="this.src='https://via.placeholder.com/400x400/0066FF/ffffff?text=REMIX'">
+                    <div class="play-overlay">
+                        <div class="play-button">
+                            <div class="play-icon"></div>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label>Additional notes or color code</label>
-                    <textarea id="clientNotes" rows="3" placeholder="Tell us about your project... If you selected 'Other Color' or 'Other Extra', please enter your details here."></textarea>
-                </div>
-                <button type="submit" class="btn-submit" id="submitBtn">
-                    Send My Quote <i class="fas fa-paper-plane"></i>
-                </button>
-            </form>
-        </div>
-
-        <!-- Success Message (hidden initially) -->
-        <div id="successMessage" style="display: none; text-align: center; padding: 3rem 2rem;">
-            <div style="width: 100px; height: 100px; background: #22c55e; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem; animation: scaleIn 0.5s var(--ease-out-expo);">
-                <i class="fas fa-check" style="font-size: 3rem; color: white;"></i>
-            </div>
-            <h2 style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--black);">Thank You!</h2>
-            <p style="font-size: 1.2rem; color: #666; margin-bottom: 2rem; line-height: 1.6;">
-                Your quote request has been sent successfully.<br>
-                We will contact you soon to discuss your project.
-            </p>
-            <div style="background: var(--beige); padding: 1.5rem; border-radius: 16px; margin-bottom: 2rem;">
-                <p style="color: #666; font-size: 0.95rem; margin-bottom: 0.5rem;">
-                    <i class="fas fa-envelope" style="color: var(--red);"></i> 
-                    Check your email for confirmation
-                </p>
-                <p style="color: #666; font-size: 0.95rem;">
-                    <i class="fas fa-phone" style="color: var(--red);"></i> 
-                    Expect a call within 24 hours
-                </p>
-            </div>
-            <button onclick="resetForm()" class="btn-submit" style="max-width: 300px; margin: 0 auto;">
-                <i class="fas fa-plus"></i> Create New Quote
-            </button>
-        </div>
-
-    </div>
-</section>
-
-<!-- Testimonials -->
-<section class="testimonials" id="testimonials">
-    <div class="section-header">
-        <h2>What Our Clients Say</h2>
-        <p>Real experiences from those who already transformed their spaces</p>
-    </div>
-    <div class="testimonials-grid">
-        
-        <!-- Testimonial 1 - Maria Rodriguez -->
-        <div class="testimonial-card">
-            <div class="stars">★★★★★</div>
-            <p class="testimonial-text">"The 911 Closets team exceeded all our expectations. Our walk-in closet looks like it's straight out of a design magazine. Impeccable professionalism!"</p>
-            <div class="testimonial-author">
-                <div class="author-photo">
-                    <img src="img/testimonials/t1.png" alt="Maria Rodriguez" onerror="this.src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=face'">
-                </div>
-                <div class="author-info">
-                    <h5>Maria Rodriguez</h5>
-                    <span>Miami, FL</span>
+                <div class="music-card-content">
+                    <h3 class="music-title">Remix</h3>
+                    <p class="music-genre">Pop Urbano | Romántico/Sensual</p>
+                    <button class="listen-button">Escuchar Canción</button>
                 </div>
             </div>
-        </div>
 
-        <!-- Testimonial 2 - Carlos Gomez -->
-        <div class="testimonial-card">
-            <div class="stars">★★★★★</div>
-            <p class="testimonial-text">"From design to installation, everything was perfect. Now I have double the space in the same area. Highly recommended."</p>
-            <div class="testimonial-author">
-                <div class="author-photo">
-                    <img src="img/testimonials/t5.png" alt="Carlos Gomez" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face'">
+            <!-- Card 4 -->
+            <div class="music-card" onclick="window.open('https://on.soundcloud.com/uhvojTjBkilwpcIng0', '_blank')">
+                <div class="music-card-image-container">
+                    <img src="img/covers/cover-4.webp" alt="Noche de Verano" class="music-card-image" onerror="this.src='https://via.placeholder.com/400x400/0066FF/ffffff?text=PLACER'">
+                    <div class="play-overlay">
+                        <div class="play-button">
+                            <div class="play-icon"></div>
+                        </div>
+                    </div>
                 </div>
-                <div class="author-info">
-                    <h5>Carlos Gomez</h5>
-                    <span>Ft Lauderdale, FL</span>
+                <div class="music-card-content">
+                    <h3 class="music-title">Placer</h3>
+                    <p class="music-genre">Pop Urbano | Sensual/Enérgico</p>
+                    <button class="listen-button">Escuchar Canción</button>
+                </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="music-card" onclick="window.open('https://on.soundcloud.com/Yf82eFxXpyP4XMzV5w', '_blank')">
+                <div class="music-card-image-container">
+                    <img src="img/covers/cover-5.webp" alt="Latido" class="music-card-image" onerror="this.src='https://via.placeholder.com/400x400/0066FF/ffffff?text=DELETE'">
+                    <div class="play-overlay">
+                        <div class="play-button">
+                            <div class="play-icon"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="music-card-content">
+
+                    <h3 class="music-title">Delete</h3>
+                    <p class="music-genre">Pop Urbano | Melancólico</p>
+                    <button class="listen-button">Escuchar Canción</button>
+                </div>
+            </div>
+
+            <!-- Card 6 -->
+            <div class="music-card" onclick="window.open('https://on.soundcloud.com/Api4xd2oUc85b8xNJZ', '_blank')">
+                <div class="music-card-image-container">
+                    <img src="img/covers/cover-6.webp" alt="Destino" class="music-card-image" onerror="this.src='https://via.placeholder.com/400x400/0066FF/ffffff?text=COMO+HAGO'">
+                    <div class="play-overlay">
+                        <div class="play-button">
+                            <div class="play-icon"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="music-card-content">
+                    <h3 class="music-title">Como Hago</h3>
+                    <p class="music-genre">Pop Urbano | Melancólico/Romántico</p>
+                    <button class="listen-button">Escuchar Canción</button>
                 </div>
             </div>
         </div>
+    </section>
 
-        <!-- Testimonial 3 - Laura Fernandez -->
-        <div class="testimonial-card">
-            <div class="stars">★★★★★</div>
-            <p class="testimonial-text">"The pantry they designed completely changed our daily routine. Everything organized and at hand. Exceptional quality and attention to detail."</p>
-            <div class="testimonial-author">
-                <div class="author-photo">
-                    <img src="img/testimonials/t2.png" alt="Laura Fernandez" onerror="this.src='https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face'">
+    <!-- Partners/Logos Section - FONDO NEGRO -->
+    <section class="partners-section">
+        <div class="partners-container">
+            <div class="partners-track" id="partnersTrack">
+                <div class="partner-logo"><img src="img/logos/bmi.png"> </div>
+                <div class="partner-logo"><img src="img/logos/safe-creative.png"></div>
+                <div class="partner-logo"><img src="img/logos/januflow.png"></div>
+                <div class="partner-logo"><img src="img/logos/hqs.png"></div>
+                <div class="partner-logo"><img src="img/logos/fl-studio.png"></div>
+                <div class="partner-logo"><img src="img/logos/bmi.png"></div>
+                <div class="partner-logo"><img src="img/logos/safe-creative.png"></div>
+                <div class="partner-logo"><img src="img/logos/januflow.png"></div>
+                <div class="partner-logo"><img src="img/logos/hqs.png"></div>
+                <div class="partner-logo"><img src="img/logos/fl-studio.png"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="contact-container">
+            <h2 class="contact-title">CONTACTO</h2>
+            <p class="contact-subtitle">¿Listo para crear algo increíble juntos?</p>
+
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <a href="mailto:dimelojanu@gmail.com" class="contact-link">dimelojanu@gmail.com</a>
                 </div>
-                <div class="author-info">
-                    <h5>Laura Fernandez</h5>
-                    <span>Coral Gables, FL</span>
-                </div>
-            </div>
-        </div>
 
-        <!-- Testimonial 4 - Jennifer Martinez -->
-        <div class="testimonial-card">
-            <div class="stars">★★★★★</div>
-            <p class="testimonial-text">"Incredible transformation! Our garage went from chaos to organized perfection. The team was fast, clean, and professional. Worth every penny!"</p>
-            <div class="testimonial-author">
-                <div class="author-photo">
-                    <img src="img/testimonials/t3.png" alt="Jennifer Martinez" onerror="this.src='https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop&crop=face'">
-                </div>
-                <div class="author-info">
-                    <h5>Jennifer Martinez</h5>
-                    <span>Aventura, FL</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Testimonial 5 - Robert Chen -->
-        <div class="testimonial-card">
-            <div class="stars">★★★★★</div>
-            <p class="testimonial-text">"Best investment we made for our home. The custom TV unit fits perfectly and the craftsmanship is outstanding. They really listen to what you need."</p>
-            <div class="testimonial-author">
-                <div class="author-photo">
-                    <img src="img/testimonials/t6.png" alt="Robert Chen" onerror="this.src='https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face'">
-                </div>
-                <div class="author-info">
-                    <h5>Robert Chen</h5>
-                    <span>Pinecrest, FL</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Testimonial 6 - Amanda Johnson -->
-        <div class="testimonial-card">
-            <div class="stars">★★★★★</div>
-            <p class="testimonial-text">"My linen closet was a disaster before 911 Closets. Now everything has its place and I can actually find things! The design is beautiful and functional."</p>
-            <div class="testimonial-author">
-                <div class="author-photo">
-                    <img src="img/testimonials/t4.png" alt="Amanda Johnson" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop&crop=face'">
-                </div>
-                <div class="author-info">
-                    <h5>Amanda Johnson</h5>
-                    <span>Key Biscayne, FL</span>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</section>
-
-<!-- Gallery -->
-<section class="gallery" id="gallery">
-    <div class="section-header">
-        <h2>Our Work</h2>
-        <p>Discover some of our recent projects</p>
-    </div>
-    <div class="gallery-grid">
-        <div class="gallery-item">
-            <img src="img/gallery/2p.webp">
-            <div class="gallery-overlay">
-                <h4>Walk-In Closet</h4>
-                <p>Aventura</p>
-            </div>
-        </div>
-        <div class="gallery-item">
-            <img src="img/gallery/1p.webp">
-            <div class="gallery-overlay">
-                <h4>Walk-In Closet</h4>
-                <p>Miami Beach</p>
-            </div>
-        </div>
-        <div class="gallery-item">
-            <img src="img/gallery/3p.webp">
-            <div class="gallery-overlay">
-                <h4>Luxury Walk-In Closet</h4>
-                <p>Palmetto Bay</p>
-            </div>
-        </div>
-        <div class="gallery-item">
-            <img src="img/gallery/8p.webp">
-            <div class="gallery-overlay">
-                <h4>Walk-In Closet</h4>
-                <p>West Kendall</p>
-            </div>
-        </div>
-        <div class="gallery-item">
-            <img src="img/gallery/5p.webp">
-            <div class="gallery-overlay">
-                <h4>Custom Cubby Storage</h4>
-                <p>Wynwood</p>
-            </div>
-        </div>
-        <div class="gallery-item">
-            <img src="img/gallery/4p.webp">
-            <div class="gallery-overlay">
-                <h4>Linen Closet</h4>
-                <p>Venetian Islands</p>
-            </div>
-        </div>
-        <div class="gallery-item">
-            <img src="img/gallery/7p.webp">
-            <div class="gallery-overlay">
-                <h4>Luxury Walk-In Closet</h4>
-                <p>Gables Estates</p>
-            </div>
-        </div>
-        <div class="gallery-item">
-            <img src="img/gallery/6p.webp">
-            <div class="gallery-overlay">
-                <h4>Wardrobe</h4>
-                <p>Miami Beach</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Final CTA -->
-<section class="final-cta">
-    <div>
-        <h2>Ready to transform your space?</h2>
-        <p>Don't wait any longer to have the closet of your dreams. Free consultation.</p>
-        <div class="cta-buttons">
-            <a href="#configurator" class="cta-btn cta-btn-primary">Design My Closet Now</a>
-            <a href="mailto:augusto@911closets.com" class="cta-btn cta-btn-secondary">Send Custom Email</a>
-        </div>
-    </div>
-</section>
-
-<!-- Footer -->
-<footer class="footer">
-    <div class="footer-content">
-        <div class="footer-section">
-            <h4>911 Closets</h4>
-            <p>Premium custom storage solutions for demanding homes. Design, manufacturing, and installation of closets and space organization.</p>
-            <div class="social-icons">
-                <a href="https://www.instagram.com/911CLOSETS"><i class="fab fa-instagram"></i></a>
-            </div>
-        </div>
-        <div class="footer-section">
-            <h4>Contact</h4>
-            <p><i class="fas fa-envelope"></i> <a href="mailto:augusto@911closets.com">augusto@911closets.com</a></p>
-            <p><i class="fas fa-map-marker-alt"></i><a href="https://share.google/DG6nEU43tc2EgauiR" target="_blank">14260 SW 143 Ct, Suite 604, Miami, FL 33186</a> </p>
-        </div>
-        <div class="footer-section">
-            <h4>Hours</h4>
-            <p>Monday - Saturday: 8am - 5pm</p>
-            <p>Sunday: Closed</p>
-            <p><em>Appointments available outside hours</em></p>
-        </div>
-        <div class="footer-section">
-            <h4>Quick Links</h4>
-            <p><a href="#about">About Us</a></p>
-            <p><a href="#products">Products</a></p>
-            <p><a href="#testimonials">Testimonials</a></p>
-            <p><a href="#gallery">Our Work</a></p>
-            <p><a href="#configurator">Customize Yours</a></p>
-        </div>
-    </div>
-    <div class="footer-bottom">
-        <p>&copy; <span id="currentYear"></span> | 911 Closets. All rights reserved. | Designed & Developed by <a href="https://janueldesign.com" target="_blank" style="color: var(--red);">Januel Design</a></p>
-    </div>
-</footer>
-
-<script>
-    // ==========================================
-    // EMAILJS CONFIGURATION - ACTUALIZADA CON DOBLE TEMPLATE
-    // ==========================================
-    const EMAILJS_CONFIG = {
-        PUBLIC_KEY: 'V7FCfKu3_ltY9-HTN',
-        SERVICE_ID: 'service_q8ydvwd',
-        TEMPLATE_ADMIN_ID: 'template_v2r1g5k',      // Template para ti (admin)
-        TEMPLATE_CLIENT_ID: 'template_qw4yz4o'      // Template para cliente
-    };
-    
-    emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
-    
-    // ==========================================
-    // ⭐ CONFIGURACIÓN DE PRECIOS - PRECIOS FIJOS POR PRODUCTO/TAMAÑO
-    // ==========================================
-    const PRICING_CONFIG = {
-        // ⭐ PRECIOS FIJOS POR PRODUCTO Y TAMAÑO
-        productPrices: {
-            reachin: {
-                small: 1200,
-                medium: 3600,
-                large: 6800
-            },
-            walkin: {
-                small: 3600,
-                medium: 5400,
-                large: 9200
-            },
-            wardrobe: {
-                small: 2800,
-                medium: 4900,
-                large: 6700
-            },
-            garage: {
-                small: 2800,
-                medium: 4900,
-                large: 6700
-            },
-            pantry: {
-                small: 3600,
-                medium: 5400,
-                large: 9200
-            },
-            builtin: {
-                small: 2800,
-                medium: 4900,
-                large: 6700
-            },
-            linen: {
-                small: 1200,
-                medium: 3600,
-                large: 6800
-            },
-            tvunit: {
-                small: 3000,
-                medium: 6000,
-                large: 9000
-            }
-        },
-        
-        // ⭐ MULTIPLICADOR DE ACABADO: 1.0 para White, 1.3 para otros
-        finishMultipliers: {
-            white: 1.0,       // White: sin aumento
-            cream: 1.3,       // Cream: +30%
-            oak: 1.3,         // Natural Oak: +30%
-            walnut: 1.3,      // Walnut: +30%
-            gray: 1.3,        // Matte Gray: +30%
-            other: 1.3        // Other Color: +30%
-        },
-        
-        // ⭐ EXTRAS: Algunos porcentaje, otros precio fijo
-        extrasConfig: {
-            led: { type: 'percentage', value: 0.15 },      // LED: +15% del precio base
-            glass: { type: 'fixed', value: 250 },          // Glass Shelves: +$250
-            drawers: { type: 'fixed', value: 300 },        // Jewelry Drawers: +$300
-            island: { type: 'fixed', value: 1800 }         // Center Island: +$1,800
-        }
-    };
-    
-    // ==========================================
-    // CONFIGURATOR DATA
-    // ==========================================
-    const CONFIG_DATA = {
-        // ⭐ REACH-IN PRIMERO EN LA LISTA
-        products: [
-            { id: 'reachin', name: 'Reach-in Closet', icon: '🚪', desc: 'Maximum space use' },
-            { id: 'walkin', name: 'Walk-in Closet', icon: '🚪', desc: 'Luxury dressing room' },
-            { id: 'wardrobe', name: 'Wardrobe', icon: '👔', desc: 'Freestanding unit' },
-            { id: 'garage', name: 'Garage Storage', icon: '🚗', desc: 'Professional organization' },
-            // ⭐ ICONO PANTRY: Usamos emoji de caja/utensilios compatible con todos los navegadores
-            { id: 'pantry', name: 'Pantry Room', icon: '🍳', desc: 'Kitchen storage' },
-            { id: 'builtin', name: 'Built-in', icon: '📚', desc: 'Custom furniture' },
-            { id: 'linen', name: 'Linen Closet', icon: '🛏️', desc: 'Linen organization' },
-            { id: 'tvunit', name: 'TV Unit', icon: '📺', desc: 'Entertainment center' }
-        ],
-        // ⭐ SIN X-LARGE
-        sizes: [
-            { id: 'small', name: 'Small' },
-            { id: 'medium', name: 'Medium'},
-            { id: 'large', name: 'Large' }
-        ],
-        finishes: [
-            // ⭐ WHITE SIN "GLOSS"
-            { id: 'white', name: 'White', color: '#f5f5f5' },
-            { id: 'cream', name: 'Cream', color: '#f5f5dc' },
-            { id: 'oak', name: 'Natural Oak', color: '#d4a574' },
-            { id: 'walnut', name: 'Walnut', color: '#5d4e37' },
-            { id: 'gray', name: 'Matte Gray', color: '#6b7280' },
-            { id: 'other', name: 'Other Color', color: 'other', isOther: true }
-        ],
-        // ⭐ EXTRAS ACTUALIZADOS: Sin Shoe Rack ni Full Mirror, agregado "Other"
-        extras: [
-            { id: 'led', name: 'LED Lighting', icon: '💡', desc: 'Integrated LED system ' },
-            { id: 'glass', name: 'Glass Shelves', icon: '🔮', desc: 'Tempered glass shelving ' },
-            { id: 'drawers', name: 'Jewelry Drawers', icon: '💍', desc: 'Velvet-lined organizers ' },
-            { id: 'island', name: 'Center Island', icon: '🏝️', desc: 'Storage island with drawers ' },
-            { id: 'other', name: 'Other', icon: '✨', desc: 'Describe your custom extra in the notes below' }
-        ]
-    };
-    
-    // Estado inicial: Reach-in Medium
-    let state = {
-        product: 'reachin',
-        size: 'medium',
-        finish: 'white',
-        extras: []
-    };
-    
-    // ==========================================
-    // INITIALIZATION
-    // ==========================================
-    document.addEventListener('DOMContentLoaded', () => {
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
-        
-        renderAll();
-        updatePreview();
-        updateFormSummary();
-        
-        window.addEventListener('scroll', () => {
-            const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
-            document.querySelector('.scroll-progress').style.transform = `scaleX(${scrollPercent})`;
-        });
-        
-        initBeforeAfter();
-        initFormatters();
-    });
-
-    document.addEventListener('DOMContentLoaded', () => {
-   
-      
-        const btnQuote = document.getElementById('btnQuote');
-        if (btnQuote) {
-            btnQuote.addEventListener('click', function(e) {
-                e.preventDefault();
-                const formSection = document.getElementById('quoteForm');
                 
-                if (formSection) {
-                    const offset = 80;
-                    const elementPosition = formSection.getBoundingClientRect().top;
-                    const offsetPosition = elementPosition + window.pageYOffset - offset;
-                    
-                    window.scrollTo({
-                        top: offsetPosition,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        }
-    });
-    
-    function initBeforeAfter() {
-        const slider = document.getElementById('baSlider');
-        const beforeImg = document.querySelector('.ba-before');
-        if (!slider) return;
-        
-        let isDragging = false;
-        const updateSlider = (x) => {
-            const rect = slider.parentElement.getBoundingClientRect();
-            let posX = x - rect.left;
-            posX = Math.min(Math.max(posX, 0), rect.width);
-            const percent = (posX / rect.width) * 100;
-            beforeImg.style.clipPath = `inset(0 ${100 - percent}% 0 0)`;
-            slider.style.left = `${percent}%`;
-        };
-    
-        slider.addEventListener('mousedown', (e) => { isDragging = true; e.preventDefault(); });
-        document.addEventListener('mousemove', (e) => { if (!isDragging) return; updateSlider(e.clientX); });
-        document.addEventListener('mouseup', () => { isDragging = false; });
-        slider.addEventListener('touchstart', () => { isDragging = true; });
-        document.addEventListener('touchmove', (e) => { if (!isDragging) return; updateSlider(e.touches[0].clientX); });
-        document.addEventListener('touchend', () => { isDragging = false; });
-    }
-    
-    // ==========================================
-    // PHONE & ZIP FORMATTING
-    // ==========================================
-    function initFormatters() {
-        const phoneInput = document.getElementById('clientPhone');
-        const zipInput = document.getElementById('clientZip');
-        
-        if (phoneInput) {
-            phoneInput.addEventListener('input', function() {
-                let value = this.value.replace(/\D/g, '');
-                value = value.substring(0, 10);
-                if (value.length >= 6) {
-                    value = `(${value.substring(0, 3)}) ${value.substring(3, 6)}-${value.substring(6)}`;
-                } else if (value.length >= 3) {
-                    value = `(${value.substring(0, 3)}) ${value.substring(3)}`;
-                }
-                this.value = value;
-            });
-        }
-        
-        if (zipInput) {
-            zipInput.addEventListener('input', function() {
-                let value = this.value.replace(/\D/g, '');
-                value = value.substring(0, 5);
-                this.value = value;
-            });
-        }
-    }
-    
-    // ==========================================
-    // MODAL FUNCTIONS
-    // ==========================================
-    function openColorModal() {
-        document.getElementById('colorModal').classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-    
-    function closeColorModal() {
-        document.getElementById('colorModal').classList.remove('active');
-        document.body.style.overflow = '';
-    }
-    
-    function confirmOtherColor() {
-        closeColorModal();
-        showToast('Great! Please enter your color code in the Additional notes field.', 'success');
-    }
-    
-    // Close modal on overlay click
-    document.getElementById('colorModal').addEventListener('click', (e) => {
-        if (e.target === document.getElementById('colorModal')) {
-            closeColorModal();
-        }
-    });
-    
-    // ==========================================
-    // RENDER FUNCTIONS <div class="option-price">From $${price.toLocaleString()}</div>
-    // ==========================================
-    function renderAll() {
-        renderProducts();
-        renderSizes();
-        renderFinishes();
-        renderExtras();
-    }
-    function renderProducts() {
-    const container = document.getElementById('productOptions');
-    container.innerHTML = CONFIG_DATA.products.map(p => `
-        <div class="option-card ${state.product === p.id ? 'selected' : ''}" onclick="selectProduct('${p.id}')">
-            <span class="option-icon">${p.isIcon ? '<i class="fas ' + p.icon + '"></i>' : p.icon}</span>
-            <div class="option-name">${p.name}</div>
-            <div class="option-desc">${p.desc}</div>
+            </div>
+
+            <div class="social-links">
+                <a href="https://instagram.com/januflow" target="_blank" class="social-link" title="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://soundcloud.com/janu-flow" target="_blank" class="social-link" title="SoundCloud">
+                    <i class="fab fa-soundcloud"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/januel-acosta/" target="_blank" class="social-link" title="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+            </div>
         </div>
-    `).join('');
-}
-    
-    
-    function renderSizes() {
-        const container = document.getElementById('sizeOptions');
-        container.innerHTML = CONFIG_DATA.sizes.map(s => `
-            <div class="option-card ${state.size === s.id ? 'selected' : ''}" onclick="selectSize('${s.id}')">
-                <span class="option-icon">📏</span>
-                <div class="option-name">${s.name}</div>
-                <!-- MEDIDA ELIMINADA: antes decía ${s.desc} -->
-            </div>
-        `).join('');
-    }
-    
-    function renderFinishes() {
-        const container = document.getElementById('finishOptions');
-        container.innerHTML = CONFIG_DATA.finishes.map(f => `
-            <div class="color-option-wrapper" onclick="${f.isOther ? 'selectOtherColor()' : `selectFinish('${f.id}')`}">
-                <div class="color-swatch ${state.finish === f.id ? 'selected' : ''} ${f.isOther ? 'other-color' : ''}" 
-                     style="${!f.isOther ? `background: ${f.color}; ${f.id === 'white' || f.id === 'cream' ? 'border: 1px solid #ddd;' : ''}` : ''}">
-                </div>
-                <div class="color-label">${f.name}</div>
-            </div>
-        `).join('');
-    }
-    
-    // ==========================================
-    // ⭐ RENDER EXTRAS ACTUALIZADOS
-    // ==========================================
-    function renderExtras() {
-    const container = document.getElementById('extrasOptions');
-    container.innerHTML = CONFIG_DATA.extras.map(e => `
-        <div class="extra-item ${state.extras.includes(e.id) ? 'selected' : ''}" onclick="toggleExtra('${e.id}')">
-            <div class="extra-checkbox">${state.extras.includes(e.id) ? '✓' : ''}</div>
-            <span class="extra-icon">${e.icon}</span>
-            <div class="extra-info">
-                <div class="extra-name">${e.name}</div>
-                <div class="extra-desc">${e.desc}</div>
-            </div>
-            <!-- PRECIO ELIMINADO - no se muestra nada aquí -->
-        </div>
-    `).join('');
-    }
-    
-    // ==========================================
-    // SELECTION HANDLERS
-    // ==========================================
-        function selectProduct(id) {
-        state.product = id;
-        renderProducts();
-        renderSizes();
-        updatePreview(true);   // ⭐ TRUE = animar (cambia imagen)
-        updateFormSummary();
-    }
+    </section>
 
-    function selectSize(id) {
-        state.size = id;
-        renderProducts();
-        renderSizes();
-        updatePreview(true);   // ⭐ TRUE = animar (cambia imagen)
-        updateFormSummary();
-    }
+    <script>
+        (function() {
+            // Smooth scroll para enlaces internos
+            document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+                anchor.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href && href !== '#') {
+                        e.preventDefault();
+                        const target = document.querySelector(href);
+                        if (target) {
+                            target.scrollIntoView({
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
 
-    function selectFinish(id) {
-        state.finish = id;
-        renderFinishes();
-        updatePreview(false);  // ⭐ FALSE = no animar (no cambia imagen)
-        updateFormSummary();
-    }
-
-    function selectOtherColor() {
-        state.finish = 'other';
-        renderFinishes();
-        openColorModal();
-        updatePreview(false);  // ⭐ FALSE = no animar (no cambia imagen)
-        updateFormSummary();
-    }
-
-    function toggleExtra(id) {
-        if (state.extras.includes(id)) {
-            state.extras = state.extras.filter(e => e !== id);
-        } else {
-            state.extras.push(id);
-        }
-        renderExtras();
-        updatePreview(false);  // ⭐ FALSE = no animar (no cambia imagen)
-        updateFormSummary();
-    }
-    
-    // ==========================================
-    // TAB SWITCHING
-    // ==========================================
-    function switchTab(tabName) {
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.classList.remove('active');
-            if (btn.dataset.tab === tabName) btn.classList.add('active');
-        });
-        
-        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-        document.getElementById(`tab-${tabName}`).classList.add('active');
-        
-        const tabOrder = ['product', 'size', 'finish', 'extras'];
-        const currentIndex = tabOrder.indexOf(tabName);
-        document.querySelectorAll('.tab-btn').forEach((btn, index) => {
-            if (index < currentIndex) {
-                btn.classList.add('completed');
-                btn.querySelector('i').className = 'fas fa-check-circle';
-            } else {
-                btn.classList.remove('completed');
-                const icons = ['door-open', 'ruler-combined', 'palette', 'plus-circle'];
-                btn.querySelector('i').className = `fas fa-${icons[index]}`;
-            }
-        });
-    }
-    
-   
-    // ==========================================
-// ⭐ PREVIEW & PRICING - CON CONTROL DE TRANSICIÓN
-// ==========================================
-function updatePreview(animate = true) {
-    const product = CONFIG_DATA.products.find(p => p.id === state.product);
-    const size = CONFIG_DATA.sizes.find(s => s.id === state.size);
-    const finish = CONFIG_DATA.finishes.find(f => f.id === state.finish);
-    
-    // Calcular precio
-    let price = PRICING_CONFIG.productPrices[state.product][state.size];
-    const basePrice = price;
-    const finishMultiplier = PRICING_CONFIG.finishMultipliers[state.finish] || 1.0;
-    price = price * finishMultiplier;
-    
-    state.extras.forEach(extraId => {
-        const extraConfig = PRICING_CONFIG.extrasConfig[extraId];
-        if (extraConfig) {
-            if (extraConfig.type === 'percentage') {
-                price += basePrice * extraConfig.value;
-            } else if (extraConfig.type === 'fixed') {
-                price += extraConfig.value;
-            }
-        }
-    });
-    
-    // ==========================================
-    // ⭐ SOLO ANIMAR SI ES PRODUCTO O TAMAÑO
-    // ==========================================
-    if (animate) {
-        // Transición suave con crossfade
-        const imgPath = `img/configurator/${state.product}/${state.size}.jpg`;
-        const previewImg = document.getElementById('previewImage');
-        const container = document.querySelector('.preview-image-container');
-        
-        // Aplicar fade out
-        previewImg.classList.add('fade-out');
-        container.classList.add('loading');
-        
-        const tempImg = new Image();
-        
-        tempImg.onload = () => {
-            setTimeout(() => {
-                previewImg.src = imgPath;
-                previewImg.classList.remove('fade-out');
-                previewImg.classList.add('fade-in');
-                container.classList.remove('loading');
-                
-                setTimeout(() => {
-                    previewImg.classList.remove('fade-in');
-                }, 700);
-            }, 300);
-        };
-        
-        tempImg.onerror = () => {
-            previewImg.src = `https://placehold.co/800x600/2a2a2a/white?text=${encodeURIComponent(product.name)}`;
-            previewImg.classList.remove('fade-out');
-            previewImg.classList.add('fade-in');
-            container.classList.remove('loading');
-            
-            setTimeout(() => {
-                previewImg.classList.remove('fade-in');
-            }, 700);
-        };
-        
-        tempImg.src = imgPath;
-        
-    } else {
-        // Sin animación: cambio instantáneo solo del precio
-        const previewImg = document.getElementById('previewImage');
-        // No tocamos la imagen, solo actualizamos el precio
-    }
-    
-    // Actualizar textos siempre
-    document.getElementById('previewTitle').textContent = product.name;
-    document.getElementById('previewSubtitle').textContent = `${size.name} Size${finish.id === 'other' ? ' • Custom Color' : ''}`;
-    
-    // Animar precio siempre (es solo un número, no afecta la imagen)
-    animatePrice(document.getElementById('priceBadge'), Math.round(price));
-}
-// ==========================================
-// ⭐ ANIMACIÓN SUAVE DEL PRECIO (CONTADOR)
-// ==========================================
-function animatePrice(element, targetPrice) {
-    const currentText = element.textContent.replace(/[^0-9]/g, '');
-    const startPrice = currentText ? parseInt(currentText) : 0;
-    const duration = 600;
-    const startTime = performance.now();
-    
-    function update(currentTime) {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        
-        // Easing suave (ease-out-cubic)
-        const easeProgress = 1 - Math.pow(1 - progress, 3);
-        
-        const currentPrice = Math.round(startPrice + (targetPrice - startPrice) * easeProgress);
-        element.textContent = '$' + currentPrice.toLocaleString();
-        
-        if (progress < 1) {
-            requestAnimationFrame(update);
-        }
-    }
-    
-    requestAnimationFrame(update);
-}
-    
-    
-    // ==========================================
-// UPDATE FORM SUMMARY - EXTRAS SIN PRECIOS
-// ==========================================
-function updateFormSummary() {
-    const product = CONFIG_DATA.products.find(p => p.id === state.product);
-    const size = CONFIG_DATA.sizes.find(s => s.id === state.size);
-    const finish = CONFIG_DATA.finishes.find(f => f.id === state.finish);
-    
-    // Precio base
-    let price = PRICING_CONFIG.productPrices[state.product][state.size];
-    const basePrice = price;
-    
-    // Multiplicador de acabado
-    const finishMultiplier = PRICING_CONFIG.finishMultipliers[state.finish] || 1.0;
-    price = price * finishMultiplier;
-    
-    let extrasText = 'None';
-    if (state.extras.length > 0) {
-        // ⭐ SOLO NOMBRE DEL EXTRA, sin precio ni porcentaje
-        const extraNames = state.extras.map(id => {
-            const extra = CONFIG_DATA.extras.find(e => e.id === id);
-            const extraConfig = PRICING_CONFIG.extrasConfig[id];
-            
-            // Calcular precio internamente (para el total) pero NO mostrarlo
-            if (extraConfig) {
-                if (extraConfig.type === 'percentage') {
-                    price += basePrice * extraConfig.value;
-                } else if (extraConfig.type === 'fixed') {
-                    price += extraConfig.value;
-                }
-            }
-            
-            // ⭐ Retornar solo el nombre, limpio
-            return extra.name;
-        });
-        extrasText = extraNames.join(', ');
-    }
-    
-    document.getElementById('formProduct').textContent = product.name;
-    // ⭐ SIN MEDIDAS: solo el nombre del tamaño
-    document.getElementById('formSize').textContent = size.name;
-    document.getElementById('formFinish').textContent = finish.name;
-    document.getElementById('formExtras').textContent = extrasText;
-    document.getElementById('formPrice').textContent = '$' + Math.round(price).toLocaleString();
-}
-    
-    // ==========================================
-    // VALIDATION FUNCTIONS
-    // ==========================================
-    function validateEmail(email) {
-        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return re.test(String(email).toLowerCase());
-    }
-    
-    function validatePhone(phone) {
-        const digits = phone.replace(/\D/g, '');
-        return digits.length === 10;
-    }
-    
-    function validateZip(zip) {
-        const digits = zip.replace(/\D/g, '');
-        return digits.length === 5;
-    }
-    
-    document.getElementById('clientEmail').addEventListener('blur', function() {
-        const email = this.value;
-        const errorDiv = document.getElementById('emailError');
-        
-        if (email && !validateEmail(email)) {
-            this.classList.add('error');
-            errorDiv.classList.add('show');
-        } else {
-            this.classList.remove('error');
-            errorDiv.classList.remove('show');
-        }
-    });
-    
-    document.getElementById('clientEmail').addEventListener('input', function() {
-        this.classList.remove('error');
-        document.getElementById('emailError').classList.remove('show');
-    });
-    
-    // ==========================================
-    // TOAST NOTIFICATIONS
-    // ==========================================
-    function showToast(message, type = 'success') {
-        const toast = document.getElementById('toast');
-        const toastMessage = document.getElementById('toastMessage');
-        
-        toast.className = `toast ${type}`;
-        toastMessage.textContent = message;
-        
-        const icon = toast.querySelector('i');
-        icon.className = type === 'success' ? 'fas fa-check-circle' : 'fas fa-exclamation-circle';
-        
-        toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 5000);
-    }
-    
-    // ==========================================
-    // ⭐ FORM SUBMISSION - DOBLE ENVÍO
-    // ==========================================
-    document.getElementById('leadForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const phoneInput = document.getElementById('clientPhone');
-        const zipInput = document.getElementById('clientZip');
-        const emailInput = document.getElementById('clientEmail');
-        
-        if (!validateEmail(emailInput.value)) {
-            emailInput.classList.add('error');
-            document.getElementById('emailError').classList.add('show');
-            showToast('Please enter a valid email address', 'error');
-            emailInput.focus();
-            return;
-        }
-        
-        if (!validatePhone(phoneInput.value)) {
-            phoneInput.classList.add('error');
-            showToast('Please enter a valid 10-digit phone number', 'error');
-            phoneInput.focus();
-            return;
-        }
-        
-        if (!validateZip(zipInput.value)) {
-            zipInput.classList.add('error');
-            showToast('Please enter a valid 5-digit ZIP code', 'error');
-            zipInput.focus();
-            return;
-        }
-        
-        const submitBtn = document.getElementById('submitBtn');
-        const originalContent = submitBtn.innerHTML;
-        
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = '<div class="spinner"></div> Sending...';
-        
-        const product = CONFIG_DATA.products.find(p => p.id === state.product);
-        const size = CONFIG_DATA.sizes.find(s => s.id === state.size);
-        const finish = CONFIG_DATA.finishes.find(f => f.id === state.finish);
-        
-        // ⭐ CALCULAR PRECIO CON NUEVA ESTRUCTURA
-        let price = PRICING_CONFIG.productPrices[state.product][state.size];
-        const basePrice = price;
-        
-        const finishMultiplier = PRICING_CONFIG.finishMultipliers[state.finish] || 1.0;
-        price = price * finishMultiplier;
-        
-                // ⭐ DESPUÉS (solo nombres, sin precios):
-        const extrasList = state.extras.map(id => {
-            const extra = CONFIG_DATA.extras.find(e => e.id === id);
-            const extraConfig = PRICING_CONFIG.extrasConfig[id];
-            
-            // Calcular precio internamente (para el total) pero NO enviarlo
-            if (extraConfig) {
-                if (extraConfig.type === 'percentage') {
-                    price += basePrice * extraConfig.value;
-                } else if (extraConfig.type === 'fixed') {
-                    price += extraConfig.value;
-                }
-            }
-            
-            // ⭐ Solo retornar el nombre limpio
-            return extra.name;
-        });
-        
-        // Construir URL de imagen
-        const protocol = window.location.protocol;
-        const host = window.location.host;
-        const imagePath = `img/configurator/${state.product}/${state.size}.jpg`;
-        const fullImageUrl = `${protocol}//${host}/${imagePath}`;
-        
-        console.log('🖼️ URL de imagen:', fullImageUrl);
-        console.log('📧 Email cliente:', emailInput.value);
-        
-        // Preparar parámetros comunes
-        const commonParams = {
-            client_name: document.getElementById('clientName').value,
-            client_phone: phoneInput.value,
-            client_email: emailInput.value,
-            client_zip: zipInput.value,
-            client_notes: document.getElementById('clientNotes').value || 'No additional notes',
-            product_name: product.name,
-            product_type: state.product,
-            size_name: size.name,
-            size_desc: size.desc,
-            finish_name: finish.name,
-            extras_list: extrasList.length > 0 ? extrasList.join(', ') : 'None selected',
-            price_estimate: '$' + Math.round(price).toLocaleString(),
-            config_image_url: fullImageUrl,
-            reply_to: emailInput.value
-        };
-        
-        try {
-            // 1. ENVIAR A ADMIN
-            const adminParams = {
-                ...commonParams,
-                to_email: 'janueldesign@gmmail.com'
+            // Animación al scroll - optimizada
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
             };
-            
-            console.log('📤 Enviando a admin...', adminParams);
-            
-            await emailjs.send(
-                EMAILJS_CONFIG.SERVICE_ID,
-                EMAILJS_CONFIG.TEMPLATE_ADMIN_ID,
-                adminParams
-            );
-            
-            // 2. ENVIAR AUTO-REPLY A CLIENTE
-            const clientParams = {
-                ...commonParams,
-                to_email: emailInput.value
-            };
-            
-            console.log('📤 Enviando a cliente...', clientParams);
-            
-            await emailjs.send(
-                EMAILJS_CONFIG.SERVICE_ID,
-                EMAILJS_CONFIG.TEMPLATE_CLIENT_ID,
-                clientParams
-            );
-            
-            // Mostrar éxito
-            showSuccessMessage();
-            
-        } catch (error) {
-            console.error('❌ EmailJS Error:', error);
-            showToast('Error sending quote: ' + (error.text || error.message), 'error');
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = originalContent;
-        }
-    });
-    
-    // ==========================================
-    // MOSTRAR MENSAJE DE ÉXITO
-    // ==========================================
-    function showSuccessMessage() {
-        const formContent = document.getElementById('formContent');
-        const successMessage = document.getElementById('successMessage');
-        
-        formContent.style.opacity = '0';
-        formContent.style.transform = 'translateY(-20px)';
-        formContent.style.transition = 'all 0.4s var(--ease-out-expo)';
-        
-        setTimeout(() => {
-            formContent.style.display = 'none';
-            successMessage.style.display = 'block';
-            
-            successMessage.style.opacity = '0';
-            successMessage.style.transform = 'translateY(20px)';
-            successMessage.style.transition = 'all 0.5s var(--ease-out-expo)';
-            
-            setTimeout(() => {
-                successMessage.style.opacity = '1';
-                successMessage.style.transform = 'translateY(0)';
-            }, 50);
-        }, 400);
-    }
-    
-    // ==========================================
-    // RESETEAR FORMULARIO
-    // ==========================================
-    function resetForm() {
-        const formContent = document.getElementById('formContent');
-        const successMessage = document.getElementById('successMessage');
-        const form = document.getElementById('leadForm');
-        const submitBtn = document.getElementById('submitBtn');
-        
-        successMessage.style.opacity = '0';
-        successMessage.style.transform = 'translateY(-20px)';
-        successMessage.style.transition = 'all 0.4s var(--ease-out-expo)';
-        
-        setTimeout(() => {
-            successMessage.style.display = 'none';
-            formContent.style.display = 'block';
-            formContent.style.opacity = '0';
-            formContent.style.transform = 'translateY(20px)';
-            
-            setTimeout(() => {
-                formContent.style.opacity = '1';
-                formContent.style.transform = 'translateY(0)';
-            }, 50);
-        }, 400);
-        
-        form.reset();
-        document.getElementById('clientPhone').value = '';
-        document.getElementById('clientZip').value = '';
-        
-        // Resetear estado al inicial
-        state = { product: 'reachin', size: 'medium', finish: 'white', extras: [] };
-        renderAll();
-        updatePreview();
-        updateFormSummary();
-        switchTab('product');
-        
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = 'Send My Quote <i class="fas fa-paper-plane"></i>';
-        
-        document.getElementById('configurator').scrollIntoView({ behavior: 'smooth' });
-    }
-    
-    // Smooth scroll
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        });
-    });
-</script>
 
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = "1";
+                        entry.target.style.transform = "translateY(0)";
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            // Aplicar animación a las tarjetas
+            const musicCards = document.querySelectorAll('.music-card');
+            musicCards.forEach(function(card, index) {
+                card.style.opacity = "0";
+                card.style.transform = "translateY(30px)";
+                card.style.transition = `all 0.5s ease-out ${index * 0.1}s`;
+                observer.observe(card);
+            });
+
+            // También animar el texto de biografía
+            const bioText = document.querySelector('.bio-text');
+            if (bioText) {
+                bioText.style.opacity = "0";
+                bioText.style.transform = "translateY(30px)";
+                bioText.style.transition = "all 0.6s ease-out";
+                observer.observe(bioText);
+            }
+
+            // Forzar que los elementos ya visibles se muestren inmediatamente
+            setTimeout(function() {
+                musicCards.forEach(function(card) {
+                    const rect = card.getBoundingClientRect();
+                    if (rect.top < window.innerHeight - 100) {
+                        card.style.opacity = "1";
+                        card.style.transform = "translateY(0)";
+                        observer.unobserve(card);
+                    }
+                });
+                if (bioText) {
+                    const rect = bioText.getBoundingClientRect();
+                    if (rect.top < window.innerHeight - 100) {
+                        bioText.style.opacity = "1";
+                        bioText.style.transform = "translateY(0)";
+                        observer.unobserve(bioText);
+                    }
+                }
+            }, 100);
+        })();
+    </script>
 </body>
 </html>
