@@ -153,7 +153,7 @@ h1, h2, h3, h4, h5, h6 {
     display: none;
     align-items: center;
     justify-content: center;
-    padding: 2rem;
+    padding: 0rem;
     opacity: 0;
     transition: opacity 0.3s ease;
 }
@@ -800,7 +800,7 @@ section {
 .preview-image-container {
     position: relative;
     width: 100%;
-    aspect-ratio: 4/3;
+    aspect-ratio: 5/3;
     background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
     overflow: hidden;
 }
@@ -2489,7 +2489,7 @@ section {
                 </div>
 
                 <div class="quote-btn-container">
-                    <button class="btn-quote" onclick="scrollToForm()">
+                    <button class="btn-quote" id="btnQuote">
                         Get My Quote <i class="fas fa-arrow-down"></i>
                     </button>
                 </div>
@@ -2909,9 +2909,9 @@ section {
         ],
         // ⭐ SIN X-LARGE
         sizes: [
-            { id: 'small', name: 'Small', desc: '< 6 ft' },
-            { id: 'medium', name: 'Medium', desc: '6-12 ft' },
-            { id: 'large', name: 'Large', desc: '12-18 ft' }
+            { id: 'small', name: 'Small' },
+            { id: 'medium', name: 'Medium'},
+            { id: 'large', name: 'Large' }
         ],
         finishes: [
             // ⭐ WHITE SIN "GLOSS"
@@ -2957,6 +2957,29 @@ section {
         
         initBeforeAfter();
         initFormatters();
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+   
+      
+        const btnQuote = document.getElementById('btnQuote');
+        if (btnQuote) {
+            btnQuote.addEventListener('click', function(e) {
+                e.preventDefault();
+                const formSection = document.getElementById('quoteForm');
+                
+                if (formSection) {
+                    const offset = 80;
+                    const elementPosition = formSection.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - offset;
+                    
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        }
     });
     
     function initBeforeAfter() {
@@ -3063,7 +3086,7 @@ section {
             <div class="option-card ${state.size === s.id ? 'selected' : ''}" onclick="selectSize('${s.id}')">
                 <span class="option-icon">📏</span>
                 <div class="option-name">${s.name}</div>
-                <div class="option-desc">${s.desc}</div>
+                <!-- MEDIDA ELIMINADA: antes decía ${s.desc} -->
             </div>
         `).join('');
     }
@@ -3169,9 +3192,7 @@ section {
         });
     }
     
-    // ==========================================
-    // ⭐ PREVIEW & PRICING - PRECIOS FIJOS POR PRODUCTO/TAMAÑO
-    // ==========================================
+   
     // ==========================================
 // ⭐ PREVIEW & PRICING - CON CONTROL DE TRANSICIÓN
 // ==========================================
@@ -3278,53 +3299,52 @@ function animatePrice(element, targetPrice) {
     requestAnimationFrame(update);
 }
     
+    
     // ==========================================
-    // ⭐ UPDATE FORM SUMMARY - PRECIOS FIJOS
-    // ==========================================
-    function updateFormSummary() {
-        const product = CONFIG_DATA.products.find(p => p.id === state.product);
-        const size = CONFIG_DATA.sizes.find(s => s.id === state.size);
-        const finish = CONFIG_DATA.finishes.find(f => f.id === state.finish);
-        
-        // ⭐ Precio base
-        let price = PRICING_CONFIG.productPrices[state.product][state.size];
-        const basePrice = price;
-        
-        // ⭐ Multiplicador de acabado
-        const finishMultiplier = PRICING_CONFIG.finishMultipliers[state.finish] || 1.0;
-        price = price * finishMultiplier;
-        
-        let extrasText = 'None';
-        if (state.extras.length > 0) {
-            const extraNames = state.extras.map(id => {
-                const extra = CONFIG_DATA.extras.find(e => e.id === id);
-                const extraConfig = PRICING_CONFIG.extrasConfig[id];
-                
-                if (extraConfig) {
-                    if (extraConfig.type === 'percentage') {
-                        const extraPrice = basePrice * extraConfig.value;
-                        price += extraPrice;
-                        return `${extra.name} (+${(extraConfig.value * 100).toFixed(0)}%)`;
-                    } else if (extraConfig.type === 'fixed') {
-                        price += extraConfig.value;
-                        return `${extra.name} (+$${extraConfig.value.toLocaleString()})`;
-                    }
+// UPDATE FORM SUMMARY - EXTRAS SIN PRECIOS
+// ==========================================
+function updateFormSummary() {
+    const product = CONFIG_DATA.products.find(p => p.id === state.product);
+    const size = CONFIG_DATA.sizes.find(s => s.id === state.size);
+    const finish = CONFIG_DATA.finishes.find(f => f.id === state.finish);
+    
+    // Precio base
+    let price = PRICING_CONFIG.productPrices[state.product][state.size];
+    const basePrice = price;
+    
+    // Multiplicador de acabado
+    const finishMultiplier = PRICING_CONFIG.finishMultipliers[state.finish] || 1.0;
+    price = price * finishMultiplier;
+    
+    let extrasText = 'None';
+    if (state.extras.length > 0) {
+        // ⭐ SOLO NOMBRE DEL EXTRA, sin precio ni porcentaje
+        const extraNames = state.extras.map(id => {
+            const extra = CONFIG_DATA.extras.find(e => e.id === id);
+            const extraConfig = PRICING_CONFIG.extrasConfig[id];
+            
+            // Calcular precio internamente (para el total) pero NO mostrarlo
+            if (extraConfig) {
+                if (extraConfig.type === 'percentage') {
+                    price += basePrice * extraConfig.value;
+                } else if (extraConfig.type === 'fixed') {
+                    price += extraConfig.value;
                 }
-                return `${extra.name} (Custom)`;
-            });
-            extrasText = extraNames.join(', ');
-        }
-        
-        document.getElementById('formProduct').textContent = product.name;
-        document.getElementById('formSize').textContent = size.name + ' (' + size.desc + ')';
-        document.getElementById('formFinish').textContent = finish.name;
-        document.getElementById('formExtras').textContent = extrasText;
-        document.getElementById('formPrice').textContent = '$' + Math.round(price).toLocaleString();
+            }
+            
+            // ⭐ Retornar solo el nombre, limpio
+            return extra.name;
+        });
+        extrasText = extraNames.join(', ');
     }
     
-    function scrollToForm() {
-        document.getElementById('quoteForm').scrollIntoView({ behavior: 'smooth' });
-    }
+    document.getElementById('formProduct').textContent = product.name;
+    // ⭐ SIN MEDIDAS: solo el nombre del tamaño
+    document.getElementById('formSize').textContent = size.name;
+    document.getElementById('formFinish').textContent = finish.name;
+    document.getElementById('formExtras').textContent = extrasText;
+    document.getElementById('formPrice').textContent = '$' + Math.round(price).toLocaleString();
+}
     
     // ==========================================
     // VALIDATION FUNCTIONS
@@ -3428,21 +3448,22 @@ function animatePrice(element, targetPrice) {
         const finishMultiplier = PRICING_CONFIG.finishMultipliers[state.finish] || 1.0;
         price = price * finishMultiplier;
         
+                // ⭐ DESPUÉS (solo nombres, sin precios):
         const extrasList = state.extras.map(id => {
             const extra = CONFIG_DATA.extras.find(e => e.id === id);
             const extraConfig = PRICING_CONFIG.extrasConfig[id];
             
+            // Calcular precio internamente (para el total) pero NO enviarlo
             if (extraConfig) {
                 if (extraConfig.type === 'percentage') {
-                    const extraPrice = basePrice * extraConfig.value;
-                    price += extraPrice;
-                    return `${extra.name} (+${(extraConfig.value * 100).toFixed(0)}%) - $${Math.round(extraPrice)}`;
+                    price += basePrice * extraConfig.value;
                 } else if (extraConfig.type === 'fixed') {
                     price += extraConfig.value;
-                    return `${extra.name} (+$${extraConfig.value.toLocaleString()})`;
                 }
             }
-            return `${extra.name} (Custom - see notes)`;
+            
+            // ⭐ Solo retornar el nombre limpio
+            return extra.name;
         });
         
         // Construir URL de imagen
